@@ -57,6 +57,7 @@ public class gameBackgroundsModel {
         lifeLabel.setTextFill(Color.RED);
         lifeLabel.setStyle("-fx-font-size: 4em;");
  
+     
         scoreLabel.setText(scorePoints.toString());
         scoreLabel.setStyle("-fx-font-size: 4em;");
  
