@@ -52,6 +52,7 @@ public class gameBackgroundsModel {
         );
         timerLabel.setStyle("-fx-font-size: 4em;");
  
+     
         refillLife();
         lifeLabel.setTextFill(Color.RED);
         lifeLabel.setStyle("-fx-font-size: 4em;");
