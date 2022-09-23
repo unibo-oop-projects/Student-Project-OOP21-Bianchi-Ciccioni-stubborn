@@ -61,6 +61,7 @@ public class gameBackgroundsModel {
         scoreLabel.setText(scorePoints.toString());
         scoreLabel.setStyle("-fx-font-size: 4em;");
  
+     
         HBox hbTopLeft = new HBox(8);
         HBox hbTopCenter = new HBox(8);
         HBox hbBottomLeft = new HBox(8);
