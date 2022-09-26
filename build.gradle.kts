@@ -1,5 +1,4 @@
 // Declaration of the Gradle extension to use
-
 plugins {
     java
     application
@@ -10,11 +9,9 @@ plugins {
      */
     id("com.github.johnrengelman.shadow") version "5.2.0"
 }
-
 repositories {
     jcenter() // Contains the whole Maven Central + other stuff
 }
-
 // List of JavaFX modules you need. Comment out things you are not using.
 val javaFXModules = listOf(
     "base",
