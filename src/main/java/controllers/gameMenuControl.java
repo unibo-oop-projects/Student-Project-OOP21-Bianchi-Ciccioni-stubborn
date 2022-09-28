@@ -17,7 +17,7 @@ public final class menuUIController {
     }
 
     @FXML
-    public void btnSOnClickHandler() {
+    public void btnScoreOnClickHandler() {
         menuStage.close();
         /* startBoard();	sostituire a startBoard il nome dato alla
          *  funzione che apre la visualizzazione del set dei punteggi */
