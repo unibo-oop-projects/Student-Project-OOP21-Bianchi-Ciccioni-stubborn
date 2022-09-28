@@ -1,5 +1,14 @@
 
 public class gameBackgroundsControl {
+    public void gameOver() {
+	Integer finalScore;
+	finalScore = scorePoints;
+	primaryStage.close();
+	startMenu();
+	scoreBoard.add(finalScore); /* sostituire a
+	scoreBoard il nome dato al set dei punteggi */ 
+    }
+    
     private void refillLife() {
 	lifeLabel.setText("");
 	for (Integer i = 0; i < lifePoints; i++) {
