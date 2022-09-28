@@ -31,8 +31,9 @@ public class gameBackgroundsModel {
     }
  
     @Override
-    public void start(Stage primaryStage) {
- 
+    public void startGame(Stage primaryStage) {
+    	menuStage.close();
+    	
         primaryStage.setTitle("Game backgrounds");
         Group root = new Group();
         Scene scene = new Scene(root, 300, 250);
@@ -52,22 +53,19 @@ public class gameBackgroundsModel {
         );
         timerLabel.setStyle("-fx-font-size: 4em;");
  
-     
         refillLife();
         lifeLabel.setTextFill(Color.RED);
         lifeLabel.setStyle("-fx-font-size: 4em;");
  
-     
         scoreLabel.setText(scorePoints.toString());
         scoreLabel.setStyle("-fx-font-size: 4em;");
  
-     
         HBox hbTopLeft = new HBox(8);
         HBox hbTopCenter = new HBox(8);
         HBox hbBottomLeft = new HBox(8);
         hbTopLeft.setAlignment(Pos.LEFT);
         hbTopLeft.setPrefWidth(scene.getWidth());
-        hbTopLeft.getChildren().addAll(timerLabel);
+        hbTopLeft.getChildren().add(timerLabel);
         root.getChildren().add(hbTopLeft);
  
         hbTopCenter.setAlignment(Pos.LEFT);
