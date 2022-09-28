@@ -10,6 +10,10 @@
 	fx:controller="controllers.UIController">
 
   <children>
+    <Label fx:id="lblTitle"
+    	alignment="TOP_CENTER"
+    	text="Stubborn" />
+
     <Button fx:id="btnPlay"
     	alignment="BOTTOM_LEFT"
     	text="New Game"
@@ -19,9 +23,5 @@
     	alignment="BOTTOM_RIGHT"
     	text="Scoreboard"
     	onMouseClicked="#btnScoreOnClickHandler" />
-    
-    <Label fx:id="lblTitle"
-    	alignment="TOP_CENTER"
-    	text="Stubborn" />
   </children>
 </VBox >
