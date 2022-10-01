@@ -14,6 +14,8 @@ public final class menuUIController {
     public void btnPlayOnClickHandler() {
         menuStage.close();
         startGame();
+        startTimer();
+        refillLife();
     }
 
     @FXML
