@@ -42,29 +42,23 @@ public class gameBackgroundsControl {
     	};
     };
     
-    new EventHandler() {
-    	public void hurtLife(ActionEvent event) {
-    		lifePoints--;
-    		if (lifePoints == 0) {
-    			gameOver();
-    		}
-    		lblLife.setText("!!GOT HIT!!");
-    		refillLife();
+    public void hurtLife(ActionEvent event) {
+    	lifePoints--;
+    	if (lifePoints == 0) {
+    		gameOver();
     	}
-    };
-    new EventHandler() {
-    	public void healLife(ActionEvent event) {
-    		if (lifePoints < MAXLIVES) {
-        		lifePoints++;
-        		lblLife.setText("!!LIFE GAINED!!");
-			refillLife();
-    		}
+    	lblLife.setText("!!GOT HIT!!");
+    	refillLife();
+    }
+    public void healLife(ActionEvent event) {
+    	if (lifePoints < MAXLIVES) {
+       		lifePoints++;
+       		lblLife.setText("!!LIFE GAINED!!");
+		refillLife();
     	}
-    };
-    new EventHandler() {
-    	public void updateScore(ActionEvent event, Integer gain) {
-    		scorePoints += gain;
-    		lblScore.setText(scorePoints.toString());
-    	}
-    };
+    }
+    public void updateScore(ActionEvent event, Integer gain) {
+    	scorePoints += gain;
+    	lblScore.setText(scorePoints.toString());
+    }
 }
