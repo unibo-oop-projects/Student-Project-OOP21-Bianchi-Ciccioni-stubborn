@@ -19,8 +19,6 @@ public final class GameBackgrounds extends Application {
         primaryStage.setTitle("Game backgrounds");
         primaryStage.setScene(gameBackgroundsScene);
         primaryStage.show();
-        startTimer();
-        refillLife();
     }
 
     public static void main(final String[] args) {
