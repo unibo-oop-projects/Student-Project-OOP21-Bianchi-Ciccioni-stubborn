@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
+<<<<<<< HEAD
 	<name>oop-primer</name>
 	<comment>Project repotest created by Buildship.</comment>
+=======
+	<name>OOP-stubborn</name>
+	<comment>Project OOP-stubborn created by Buildship.</comment>
+>>>>>>> 104314133f03e6fe18ec1dfdce60631f4e22839c
 	<projects>
 	</projects>
 	<buildSpec>
@@ -15,6 +20,7 @@
 			<arguments>
 			</arguments>
 		</buildCommand>
+<<<<<<< HEAD
 		<buildCommand>
 			<name>edu.umd.cs.findbugs.plugin.eclipse.findbugsBuilder</name>
 			<arguments>
@@ -30,12 +36,17 @@
 			<arguments>
 			</arguments>
 		</buildCommand>
+=======
+>>>>>>> 104314133f03e6fe18ec1dfdce60631f4e22839c
 	</buildSpec>
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.buildship.core.gradleprojectnature</nature>
+<<<<<<< HEAD
 		<nature>edu.umd.cs.findbugs.plugin.eclipse.findbugsNature</nature>
 		<nature>net.sourceforge.pmd.eclipse.plugin.pmdNature</nature>
 		<nature>net.sf.eclipsecs.core.CheckstyleNature</nature>
+=======
+>>>>>>> 104314133f03e6fe18ec1dfdce60631f4e22839c
 	</natures>
 </projectDescription>
