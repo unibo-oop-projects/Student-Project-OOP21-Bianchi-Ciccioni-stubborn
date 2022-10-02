@@ -1,5 +1,10 @@
 package controllers;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
+import javafx.scene.*;
+
 public class gameBackgroundsControl {
     private static final Integer STARTTIME = 0;
     private static final Integer STARTLIVES = 3;
@@ -12,7 +17,7 @@ public class gameBackgroundsControl {
     private Integer lifePoints = STARTLIVES;
     private Integer scorePoints = STARTSCORE;
 
-    punlic void startTimer() {
+    public void startTimer() {
     	lblTimer.setText(timeSeconds.toString());
         timeline = new Timeline();
         timeline.setCycleCount(Timeline.INDEFINITE);
