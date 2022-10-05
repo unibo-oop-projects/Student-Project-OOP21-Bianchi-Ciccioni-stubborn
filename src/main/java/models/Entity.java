@@ -3,5 +3,5 @@ package models;
 public interface Entity {
     Pair<Integer, Integer> getPosition();
     
-    void setPosition(Pair<> position);
+    void setPosition(Pair<Integer, Integer> position);
 }
