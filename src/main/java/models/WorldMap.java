@@ -26,7 +26,7 @@ public class WorldMap{
         BOARD = IntStream.rangeClosed(0, BOARD_WIDTH).boxed()
                 .flatMap(x -> IntStream.rangeClosed(0, BOARD_HEIGHT).boxed()
                         .map(y -> new Pair<>(x,y))).collect(Collectors.toMap(x -> x, x -> Optional.empty()));
-        BOARD.put(this.playerPosition, Optional.of(new Player()));
+        BOARD.put(this.playerPosition, Optional.of(new PlayerImpl()));
     }
     
     /*
