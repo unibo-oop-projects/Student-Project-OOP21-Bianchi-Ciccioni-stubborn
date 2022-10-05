@@ -1,0 +1,46 @@
+ \documentclass[a4paper,12pt]{report}
+
+\usepackage{alltt, fancyvrb, url}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage{float}
+\usepackage{hyperref}
+
+% Questo commentalo se vuoi scrivere in inglese.
+\usepackage[italian]{babel}
+
+\usepackage[italian]{cleveref}
+
+\title{Relazione per\\``Programmazione ad Oggetti''\\Stubborn}
+
+\author{Mario Ciccioni, Andrea Bianchi, Alessandro Cacciaguerra}
+\date{\today}
+
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\chapter{Analisi}
+
+Il software, un videogioco 2D bird-eye view survival, proporra' al videogiocatore un'esperienza di un classico videogame survival dove lo scopo e' quello di resistere il maggior tempo possibile cercando anche di accumulare punti durante la partita.
+Il videogiocatore avra' la possibilita' di muoversi nel mondo di gioco con il suo personaggio, sopravvivere ai nemici che incontrera' nella mappa, raccogliere oggetti e recuperare vita.
+Per bird-eye view si intende una visuale dall'alto del mondo di gioco.
+
+\section{Requisiti}
+
+\subsubsection{Requisiti funzionali}
+\begin{itemize}
+	\item Una volta avviato il software verra' presentato a schermo un menu' di gioco dove il videogiocatore potra' scegliere se iniziare una nuova partita, visualizzare la classifica dei punteggi o uscire dall'applicazione.
+    \item La partita termina solo quando il personaggio perdera' tutte le vite a sua disposizione.
+\end{itemize}
+
+\subsubsection{Requisiti non funzionali}
+\begin{itemize}
+	\item Stubborn dovra' garantire una buona gestione delle risorse, non presentare lag pesanti in grado di rovinare l'esperienza di gioco e una grafica che permetta il chiaro riconoscimento di oggetti di gioco e nemici sparsi per la mappa.
+    \item Tutte le informazioni relative alla partita in corso saranno mostrate a schermo in modo intuitivo, senza essere troppo invasive ma allo stesso tempo facimente controllabili anche durante la partita. 
+\end{itemize}
+
+\end{document}
