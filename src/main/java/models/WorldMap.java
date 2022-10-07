@@ -13,10 +13,14 @@ public class WorldMap{
 
     private static final int BOARD_WIDTH = 50;
     private static final int BOARD_HEIGHT = 50;
+    private static final int NUM_ENEMIES = 5;
+    private static final int NUM_COLLECTABLES = 15;
     private static Map<Pair<Integer,Integer>,Optional<Entity>> BOARD;
     private Pair<Integer,Integer> playerPosition;
+    private SpawnStrategy spawnStrategy;
     
     public WorldMap(){
+        this.spawnStrategy = new RandomSpawnStrategy();
         this.playerPosition = new Pair<>(BOARD_WIDTH/2, BOARD_HEIGHT/2);
         //this.board.putDAPPERTUTT(new Optional...)
         /*
@@ -27,6 +31,7 @@ public class WorldMap{
                 .flatMap(x -> IntStream.rangeClosed(0, BOARD_HEIGHT).boxed()
                         .map(y -> new Pair<>(x,y))).collect(Collectors.toMap(x -> x, x -> Optional.empty()));
         BOARD.put(this.playerPosition, Optional.of(new PlayerImpl()));
+        this.spawnEntity();
     }
     
     /*
@@ -34,19 +39,30 @@ public class WorldMap{
      *  SPAWN NEMICI.
      */
     
-    private void spawnEntity(Entity entity) {
+    /*
+     * pattern strategy utilizzato per lo spawn dei nemici e dei collectable
+     */
+    private void spawnEntity() {
         /*
-        if(entity.getClass() == Player) {
+        if(entity.getClass() == Player) 
             BOARD.put(this.playerPosition, Optional.of(entity));
         } else {
             Random r = new Random();
             Pair<Integer,Integer> entityPos = new Pair<>(r.nextInt(BOARD_WIDTH), r.nextInt(BOARD_HEIGHT));
             BOARD.put(entityPos, Optional.of(entity));
         }*/
-        Random r = new Random();
-        Pair<Integer,Integer> entityPos = new Pair<>(r.nextInt(BOARD_WIDTH), r.nextInt(BOARD_HEIGHT));
-        BOARD.put(entityPos, Optional.of(entity));
+        List<Pair<Integer,Integer>> spawnPoints = this.spawnStrategy.getSpawnPoints(BOARD_WIDTH, BOARD_HEIGHT, NUM_ENEMIES + NUM_COLLECTABLES);
+        for(int i = 0; i < NUM_ENEMIES; i ++) {
+            BOARD.put(spawnPoints.get(i), Optional.of(new EnemyImpl()));
+        }
+        for(int i = NUM_ENEMIES; i < (NUM_ENEMIES + NUM_COLLECTABLES); i ++) {
+            BOARD.put(spawnPoints.get(i), Optional.of(new CollectableImpl()));
+        }
+        //spawnPoints.forEach(point -> BOARD.put(point, Optional.of(entity)));
+        
     }
+    
+    
     
     
     /*
