@@ -62,7 +62,27 @@ public class WorldMap{
         
     }
     
+    public void movePlayer(MOVEMENT movement) {
+        if(checkMovement(movement)){
+            Entity player = BOARD.replace(this.playerPosition, Optional.empty()).get();
+            this.playerPosition = new Pair<>(this.playerPosition.getX() + movement.x, this.playerPosition.getY() + movement.y);
+            player.setPosition(this.playerPosition);
+            BOARD.put(this.playerPosition, Optional.of(player));
+        }
+    }
     
+    /*
+     * Scrivere i test dei models!!
+     * Cominciare a scrivere note per la relazione del progetto (riguardo DESIGN/ARCHITETTURA e
+     * IMPLEMENTAZIONE fatta da me)
+     * ROBA DA MIGLIORARE:fare sì che la playerPosition nuova sia gestita da Enum e non da movePlayer stesso
+     * bisogna quindi sistemare il BOARD.replace utilizzato perchè nonostante funziona, potrebbe
+     * trovarsi in una situazione di Exception.
+     * Considerare un sistema in caso di Spawn nel caso di morte dei nemici.
+     * Sistemare set delle posizioni dei nemici/collectables utilizzando Combiner
+     * Per ogni Collectables dagli un Enum con un attributo per il punteggio (per distinguere cosa succede)
+     * Migliorare in caso questo design di Enum dei Collectables
+     */
     
     
     /*

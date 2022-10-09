@@ -3,6 +3,7 @@ package models;
 public class CollectableImpl implements Collectable{
     
     private Pair<Integer,Integer> position;
+    private COLLECTABLETYPE type;
 
     @Override
     public Pair<Integer, Integer> getPosition() {
