@@ -1,8 +1,10 @@
 package models;
 
-import java.util.List;
+import java.util.Set;
 
 public interface SpawnStrategy {
 
-    List<Pair<Integer,Integer>> getSpawnPoints(int width, int height,int numPoints);
+    Set<Pair<Integer,Integer>> getSpawnPoints(int width, int height,int numPoints);
+    
+    boolean checkNumPoints(int boardDimension, int numPoints);
 }
