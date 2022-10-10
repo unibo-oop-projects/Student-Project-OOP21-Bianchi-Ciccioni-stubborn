@@ -3,6 +3,7 @@ package models;
 public class EnemyImpl implements Enemy {
     
     private Pair<Integer, Integer> position;
+    private AiEnemy aiEnemy = new AiEnemyImpl();
 
     @Override
     public int getHealth() {
