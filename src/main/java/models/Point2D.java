@@ -1,5 +1,5 @@
 package models;
 
-public class Point2D extends Pair<int,int>{
+public class Point2D{
 
 }

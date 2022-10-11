@@ -7,6 +7,7 @@ import java.util.Random;
 import java.util.Set;
 
 public class RandomSpawnStrategy implements SpawnStrategy{
+    
 
     @Override
     public Set<Pair<Integer, Integer>> getSpawnPoints(int width, int height, int numPoints) {
@@ -18,13 +19,18 @@ public class RandomSpawnStrategy implements SpawnStrategy{
         return spawnPoints;
     }
     
-    private Set<Pair<Integer,Integer>> getDoubleSpawnPoints(Set<Pair<Integer,Integer>> points1, Set<Pair<Integer,Integer>> points2){
-        int points1Size = points1.size();
-        points1.addAll(points2);
-        if((points1Size+points2.size()) - points1.size() != 0) {
-           points1.addAll(getSpawnPoints(BOARD_WIDTH, BOARD_HEIGHT, (points1Size+points2.size()) - points1.size()));
+    @Override
+    public Set<Pair<Integer,Integer>> getDoubleSpawnPoints(Set<Pair<Integer,Integer>> points1, Set<Pair<Integer,Integer>> points2){
+        Set<Pair<Integer,Integer>> allPoints = new HashSet<>();
+        int width = 50;
+        int height = 50;
+        allPoints.addAll(points1);
+        allPoints.addAll(points2);
+        while(allPoints.size() - (points1.size() + points2.size()) != 0) {
+            //points1.addAll(getSpawnPoints(BOARD_WIDTH, BOARD_HEIGHT, (points1Size+points2.size()) - points1.size()));
+            allPoints.addAll(getSpawnPoints(width, height, allPoints.size() - (points1.size() + points2.size())));
         }
-        return points1;
+        return allPoints;
     }
 
     @Override

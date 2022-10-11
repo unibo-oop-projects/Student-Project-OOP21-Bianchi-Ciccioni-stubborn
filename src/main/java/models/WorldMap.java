@@ -1,10 +1,12 @@
 package models;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -52,12 +54,16 @@ public class WorldMap{
             BOARD.put(entityPos, Optional.of(entity));
         }*/
         if(this.spawnStrategy.checkNumPoints(BOARD_WIDTH * BOARD_HEIGHT, NUM_ENEMIES + NUM_COLLECTABLES)) {
-            List<Pair<Integer,Integer>> spawnPoints = this.spawnStrategy.getSpawnPoints(BOARD_WIDTH, BOARD_HEIGHT, NUM_ENEMIES + NUM_COLLECTABLES);
+            Set<Pair<Integer,Integer>> enSpawnPoints = this.spawnStrategy.getSpawnPoints(BOARD_WIDTH, BOARD_HEIGHT, NUM_ENEMIES);
+            Set<Pair<Integer,Integer>> collectSpawnPoints = this.spawnStrategy.getSpawnPoints(BOARD_WIDTH, BOARD_HEIGHT, NUM_COLLECTABLES);
+            //Set<Pair<Integer,Integer>> spawnPoints = this.spawnStrategy.getSpawnPoints(BOARD_WIDTH, BOARD_HEIGHT, NUM_ENEMIES + NUM_COLLECTABLES);
+            Set<Pair<Integer,Integer>> everyPoint = this.spawnStrategy.getDoubleSpawnPoints(enSpawnPoints, collectSpawnPoints);
+            Iterator<Pair<Integer,Integer>> pointIterator = everyPoint.iterator();
             for(int i = 0; i < NUM_ENEMIES; i ++) {
-                BOARD.put(spawnPoints.get(i), Optional.of(new EnemyImpl()));
+                BOARD.put(pointIterator.next(), Optional.of(new EnemyImpl()));
             }
             for(int i = NUM_ENEMIES; i < (NUM_ENEMIES + NUM_COLLECTABLES); i ++) {
-                BOARD.put(spawnPoints.get(i), Optional.of(new CollectableImpl()));
+                BOARD.put(pointIterator.next(), Optional.of(new CollectableImpl()));
             }
         }
         //spawnPoints.forEach(point -> BOARD.put(point, Optional.of(entity)));
