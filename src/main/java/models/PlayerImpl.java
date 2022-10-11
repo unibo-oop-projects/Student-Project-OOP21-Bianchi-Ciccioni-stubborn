@@ -4,7 +4,7 @@ public class PlayerImpl implements Player {
     
     private Pair<Integer, Integer> position;
     private int health;
-    private final int maxHealth = 3;
+    private final static int MAXHEALTH = 3;
 
     @Override
     public int getHealth() {
@@ -13,7 +13,9 @@ public class PlayerImpl implements Player {
 
     @Override
     public void setHealth(int value) {
-        this.health = this.health + value;
+        if(this.health + value < MAXHEALTH) {
+            this.health = this.health + value;
+        }
     }
 
     @Override

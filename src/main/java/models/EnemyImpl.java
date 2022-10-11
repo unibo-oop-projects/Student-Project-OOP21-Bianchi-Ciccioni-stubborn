@@ -3,17 +3,22 @@ package models;
 public class EnemyImpl implements Enemy {
     
     private Pair<Integer, Integer> position;
-    private AiEnemy aiEnemy = new AiEnemyImpl();
+    private int health;
+    private final static int MAXHEALTH = 1;
+    private AiEnemy aiEnemy = new RandomAiEnemy();
 
+    /* for now not implemented, we may not need it */
     @Override
     public int getHealth() {
-        // TODO Auto-generated method stub
-        return 0;
+        return this.health;
     }
 
+    /* for now not implemented, we may not need it */
     @Override
     public void setHealth(int value) {
-        // TODO Auto-generated method stub
+        if(this.health < 1) {
+            this.health = this.health + value;
+        }
     }
 
     @Override
