@@ -8,5 +8,5 @@ public interface SpawnStrategy {
     
     boolean checkNumPoints(int boardDimension, int numPoints);
     
-    Set<Pair<Integer,Integer>> getDoubleSpawnPoints(Set<Pair<Integer,Integer>> points1, Set<Pair<Integer,Integer>> points2);
+    Set<Pair<Integer,Integer>> getDoubleSpawnPoints(int width, int height, Set<Pair<Integer,Integer>> points1, Set<Pair<Integer,Integer>> points2);
 }

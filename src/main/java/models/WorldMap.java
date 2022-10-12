@@ -57,7 +57,7 @@ public class WorldMap{
             Set<Pair<Integer,Integer>> enSpawnPoints = this.spawnStrategy.getSpawnPoints(BOARD_WIDTH, BOARD_HEIGHT, NUM_ENEMIES);
             Set<Pair<Integer,Integer>> collectSpawnPoints = this.spawnStrategy.getSpawnPoints(BOARD_WIDTH, BOARD_HEIGHT, NUM_COLLECTABLES);
             //Set<Pair<Integer,Integer>> spawnPoints = this.spawnStrategy.getSpawnPoints(BOARD_WIDTH, BOARD_HEIGHT, NUM_ENEMIES + NUM_COLLECTABLES);
-            Set<Pair<Integer,Integer>> everyPoint = this.spawnStrategy.getDoubleSpawnPoints(enSpawnPoints, collectSpawnPoints);
+            Set<Pair<Integer,Integer>> everyPoint = this.spawnStrategy.getDoubleSpawnPoints(BOARD_WIDTH, BOARD_HEIGHT, enSpawnPoints, collectSpawnPoints);
             Iterator<Pair<Integer,Integer>> pointIterator = everyPoint.iterator();
             for(int i = 0; i < NUM_ENEMIES; i ++) {
                 BOARD.put(pointIterator.next(), Optional.of(new EnemyImpl()));
@@ -77,6 +77,10 @@ public class WorldMap{
             player.setPosition(this.playerPosition);
             BOARD.put(this.playerPosition, Optional.of(player));
         //}
+    }
+    
+    public Map<Pair<Integer,Integer>,Optional<Entity>> getBoard(){
+        return this.BOARD;
     }
     
     /*

@@ -20,10 +20,8 @@ public class RandomSpawnStrategy implements SpawnStrategy{
     }
     
     @Override
-    public Set<Pair<Integer,Integer>> getDoubleSpawnPoints(Set<Pair<Integer,Integer>> points1, Set<Pair<Integer,Integer>> points2){
+    public Set<Pair<Integer,Integer>> getDoubleSpawnPoints(int width, int height, Set<Pair<Integer,Integer>> points1, Set<Pair<Integer,Integer>> points2){
         Set<Pair<Integer,Integer>> allPoints = new HashSet<>();
-        int width = 50;
-        int height = 50;
         allPoints.addAll(points1);
         allPoints.addAll(points2);
         while(allPoints.size() - (points1.size() + points2.size()) != 0) {
