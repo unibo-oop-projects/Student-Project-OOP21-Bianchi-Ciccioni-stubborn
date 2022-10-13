@@ -5,15 +5,19 @@ public class EnemyImpl implements Enemy {
     private Pair<Integer, Integer> position;
     private int health;
     private final static int MAXHEALTH = 1;
-    private AiEnemy aiEnemy = new RandomAiEnemy();
+    private AiEnemy aiEnemy;
+    
+    public EnemyImpl(Pair<Integer, Integer> position, int health, AiEnemy aiEnemy) {
+        this.position = position;
+        this.health = health;
+        this.aiEnemy = aiEnemy;
+    }
 
-    /* for now not implemented, we may not need it */
     @Override
     public int getHealth() {
         return this.health;
     }
 
-    /* for now not implemented, we may not need it */
     @Override
     public void setHealth(int value) {
         if(this.health < 1) {

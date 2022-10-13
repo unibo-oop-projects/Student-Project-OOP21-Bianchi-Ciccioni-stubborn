@@ -5,6 +5,11 @@ public class PlayerImpl implements Player {
     private Pair<Integer, Integer> position;
     private int health;
     private final static int MAXHEALTH = 3;
+    
+    public PlayerImpl(Pair<Integer, Integer> position, int health) {
+        this.position = position;
+        this.health = health;
+    }
 
     @Override
     public int getHealth() {
