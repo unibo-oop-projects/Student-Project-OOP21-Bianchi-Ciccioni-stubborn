@@ -19,7 +19,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-public class worldMapTest {
+public class WorldMapTest {
     
     private WorldMap worldMap = new WorldMap();
     private SpawnStrategy randomStrategy = new RandomSpawnStrategy();
@@ -29,7 +29,10 @@ public class worldMapTest {
     @Test
     public void testRandomSpawnStrategy() {
         Set<Pair<Integer,Integer>> set1 = this.randomStrategy.getSpawnPoints(10, 10, 5);
-        Set<Pair<Integer,Integer>> set2 = this.randomStrategy.getSpawnPoints(10, 10, 5);
+        Pair<Integer,Integer> el = set1.iterator().next();
+        Set<Pair<Integer,Integer>> set2 = this.randomStrategy.getSpawnPoints(10, 10, 4);
+        set2.add(el);
+        System.out.println(set2.size());
         Set<Pair<Integer,Integer>> allSet = this.randomStrategy.getDoubleSpawnPoints(10, 10, set1, set2);
         assertEquals(5,set1.size());
         assertEquals(10,allSet.size());
@@ -40,8 +43,6 @@ public class worldMapTest {
     @Test
     public void testWorldMapCreation() {
         Map<Pair<Integer,Integer>,Optional<Entity>> board = worldMap.getBoard();
-        System.out.println(board);
-        System.out.println(board.size());
         assertEquals(51*51,board.size());
         assertTrue(board.get(startPlayerPos).get() instanceof Player);
     }
