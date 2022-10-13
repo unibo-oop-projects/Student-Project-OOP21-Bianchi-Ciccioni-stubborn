@@ -26,7 +26,7 @@ public class RandomSpawnStrategy implements SpawnStrategy{
         allPoints.addAll(points2);
         while(allPoints.size() - (points1.size() + points2.size()) != 0) {
             //points1.addAll(getSpawnPoints(BOARD_WIDTH, BOARD_HEIGHT, (points1Size+points2.size()) - points1.size()));
-            allPoints.addAll(getSpawnPoints(width, height, allPoints.size() - (points1.size() + points2.size())));
+            allPoints.addAll(getSpawnPoints(width, height, (points1.size() + points2.size()) - allPoints.size()));
         }
         return allPoints;
     }
