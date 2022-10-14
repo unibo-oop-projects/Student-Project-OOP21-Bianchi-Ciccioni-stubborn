@@ -1,12 +1,31 @@
 package models;
 
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
-public class CollisionsImpl implements Collisions {
+public class CollisionImpl implements CollisionStrategy {
+
+    @Override
+    public boolean checkCollisions(Map<Point2D, Optional<Entity>> board, Point2D newPos, int width, int height) {
+        if(newPos.getX() > width || newPos.getX() < 0 || newPos.getY() > height || newPos.getY() < 0) {
+            return true;
+        }
+        return board.get(newPos).isPresent() && board.get(newPos).get() instanceof Enemy; 
+    }
+    
+    
+    
+    /*
     private static final boolean PLAYER = true;
     public static Pair<Integer,Integer> enemyTile = null;
-    public static Integer scoreGain = null;
+    public static Integer scoreGain = null;*/
     
+    
+    
+    
+    /*
     public Pair<Integer,Integer> checkEnemyCollision() {
         Pair<Integer,Integer> collisionTile = enemyTile;
         enemyTile = null;
@@ -47,6 +66,6 @@ public class CollisionsImpl implements Collisions {
             return true;
         }
         return false;
-    };
+    };*/
     
 }

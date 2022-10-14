@@ -13,26 +13,33 @@ import java.util.stream.Stream;
 
 public class WorldMap{
 
-    private static final int BOARD_WIDTH = 50;
-    private static final int BOARD_HEIGHT = 50;
-    private static final int NUM_ENEMIES = 5;
-    private static final int NUM_COLLECTABLES = 15;
-    private static Map<Pair<Integer,Integer>,Optional<Entity>> BOARD;
-    private Pair<Integer,Integer> playerPosition;
+    //TODO cambiare al posto di static final di questi valori, come qualcosa preso da input
+    private int board_width;
+    private int board_height;
+    private int num_enemies;
+    private int num_collectables;
+    private Map<Point2D,Optional<Entity>> board;
+    private Point2D playerPosition;
     private SpawnStrategy spawnStrategy;
+    private CollisionStrategy collisionStrategy;
     
-    public WorldMap(){
+    public WorldMap(int width, int height, int enemies, int collectables) {
+        this.board_width = width;
+        this.board_height = height;
+        this.num_enemies = enemies;
+        this.num_collectables = collectables;
         this.spawnStrategy = new RandomSpawnStrategy();
-        this.playerPosition = new Pair<>(BOARD_WIDTH/2, BOARD_HEIGHT/2);
+        this.collisionStrategy = new CollisionImpl();
+        this.playerPosition = new Point2D(board_width/2, board_height/2);
         //this.board.putDAPPERTUTT(new Optional...)
         /*
         List<Pair<Integer,Integer>> grid = IntStream.rangeClosed(0, BOARD_WIDTH).boxed()
                  .flatMap(x -> IntStream.rangeClosed(0, BOARD_HEIGHT).boxed()
                          .map(y -> new Pair<>(x,y))).collect(Collectors.toList());*/
-        BOARD = IntStream.rangeClosed(0, BOARD_WIDTH).boxed()
-                .flatMap(x -> IntStream.rangeClosed(0, BOARD_HEIGHT).boxed()
-                        .map(y -> new Pair<>(x,y))).collect(Collectors.toMap(x -> x, x -> Optional.empty()));
-        BOARD.put(this.playerPosition, Optional.of(new PlayerImpl()));
+        this.board = IntStream.rangeClosed(0, board_width).boxed()
+                    .flatMap(x -> IntStream.rangeClosed(0, board_height).boxed()
+                    .map(y -> new Point2D(x,y))).collect(Collectors.toMap(x -> x, x -> Optional.empty()));
+        this.board.put(this.playerPosition, Optional.of(new PlayerImpl()));
         this.spawnEntity();
     }
     
@@ -53,17 +60,19 @@ public class WorldMap{
             Pair<Integer,Integer> entityPos = new Pair<>(r.nextInt(BOARD_WIDTH), r.nextInt(BOARD_HEIGHT));
             BOARD.put(entityPos, Optional.of(entity));
         }*/
-        if(this.spawnStrategy.checkNumPoints(BOARD_WIDTH * BOARD_HEIGHT, NUM_ENEMIES + NUM_COLLECTABLES)) {
-            Set<Pair<Integer,Integer>> enSpawnPoints = this.spawnStrategy.getSpawnPoints(BOARD_WIDTH, BOARD_HEIGHT, NUM_ENEMIES);
-            Set<Pair<Integer,Integer>> collectSpawnPoints = this.spawnStrategy.getSpawnPoints(BOARD_WIDTH, BOARD_HEIGHT, NUM_COLLECTABLES);
-            //Set<Pair<Integer,Integer>> spawnPoints = this.spawnStrategy.getSpawnPoints(BOARD_WIDTH, BOARD_HEIGHT, NUM_ENEMIES + NUM_COLLECTABLES);
-            Set<Pair<Integer,Integer>> everyPoint = this.spawnStrategy.getDoubleSpawnPoints(BOARD_WIDTH, BOARD_HEIGHT, enSpawnPoints, collectSpawnPoints);
-            Iterator<Pair<Integer,Integer>> pointIterator = everyPoint.iterator();
-            for(int i = 0; i < NUM_ENEMIES; i ++) {
-                BOARD.put(pointIterator.next(), Optional.of(new EnemyImpl()));
+        if(this.spawnStrategy.checkNumPoints(this.board_width * this.board_height, this.num_enemies + this.num_collectables)) {
+          //Set<Pair<Integer,Integer>> spawnPoints = this.spawnStrategy.getSpawnPoints(BOARD_WIDTH, BOARD_HEIGHT, NUM_ENEMIES + NUM_COLLECTABLES);
+            Set<Point2D> enSpawnPoints = this.spawnStrategy.getSpawnPoints(this.board_width, this.board_height, this.num_enemies);
+            Set<Point2D> collectSpawnPoints = this.spawnStrategy.getSpawnPoints(this.board_width, this.board_height, this.num_collectables);
+            
+            Set<Point2D> everyPoint = this.spawnStrategy.getDoubleSpawnPoints(this.board_width, this.board_height, enSpawnPoints, collectSpawnPoints);
+            Iterator<Point2D> pointIterator = everyPoint.iterator();
+            //TODO sistemare questo ciclo con l'iterator (magari li genero tutti insieme e poi separo)
+            for(int i = 0; i < this.num_enemies; i ++) {
+                this.board.put(pointIterator.next(), Optional.of(new EnemyImpl()));
             }
-            for(int i = NUM_ENEMIES; i < (NUM_ENEMIES + NUM_COLLECTABLES); i ++) {
-                BOARD.put(pointIterator.next(), Optional.of(new CollectableImpl()));
+            for(int i = this.num_enemies; i < (this.num_enemies + this.num_collectables); i ++) {
+                this.board.put(pointIterator.next(), Optional.of(new CollectableImpl()));
             }
         }
         //spawnPoints.forEach(point -> BOARD.put(point, Optional.of(entity)));
@@ -71,16 +80,17 @@ public class WorldMap{
     }
     
     public void movePlayer(MOVEMENT movement) {
-        //if(checkMovement(movement)){
-            Entity player = BOARD.replace(this.playerPosition, Optional.empty()).get();
-            this.playerPosition = new Pair<>(this.playerPosition.getX() + movement.x, this.playerPosition.getY() + movement.y);
+        Point2D newPos = new Point2D(this.playerPosition.getX() + movement.x, this.playerPosition.getY() + movement.y);
+        if(!this.collisionStrategy.checkCollisions(this.getBoard(), newPos, this.board_width, this.board_height)){
+            Entity player = this.board.replace(this.playerPosition, Optional.empty()).get();
+            this.playerPosition = newPos;
             player.setPosition(this.playerPosition);
-            BOARD.put(this.playerPosition, Optional.of(player));
-        //}
+            this.board.put(this.playerPosition, Optional.of(player));
+        }
     }
     
-    public Map<Pair<Integer,Integer>,Optional<Entity>> getBoard(){
-        return this.BOARD;
+    public Map<Point2D,Optional<Entity>> getBoard() {
+        return this.board;
     }
     
     /*
