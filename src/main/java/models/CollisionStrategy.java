@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-public interface CollisionStrategy {
+public interface CollisionStrategy<X> {
     /*
     public Pair<Integer,Integer> checkEnemyCollision();
 
