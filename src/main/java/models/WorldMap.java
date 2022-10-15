@@ -75,12 +75,10 @@ public class WorldMap{
                 this.board.put(pointIterator.next(), Optional.of(new CollectableImpl()));
             }
         }
-        //spawnPoints.forEach(point -> BOARD.put(point, Optional.of(entity)));
-        
     }
     
     public void movePlayer(MOVEMENT movement) {
-        Point2D newPos = new Point2D(this.playerPosition.getX() + movement.x, this.playerPosition.getY() + movement.y);
+        Point2D newPos = Point2D.sum(this.playerPosition, movement.movement);
         if(!this.collisionStrategy.checkCollisions(this.getBoard(), newPos, this.board_width, this.board_height)){
             Entity player = this.board.replace(this.playerPosition, Optional.empty()).get();
             this.playerPosition = newPos;

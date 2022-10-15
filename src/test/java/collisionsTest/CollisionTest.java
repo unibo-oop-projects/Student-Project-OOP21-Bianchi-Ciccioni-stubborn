@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CollisionTest {
     
     CollisionStrategy collisions = new CollisionImpl();
-    //WorldMap worldMap = new WorldMap();
+    //WorldMap worldMap = new WorldMap(4,4);
     //Map<Point2D,Optional<Entity>> board = worldMap.getBoard();
     
     @Test
