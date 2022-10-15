@@ -10,10 +10,10 @@ import java.util.Optional;
 public class FocusAiEnemy implements AiEnemy {
 
     @Override
-    public Pair<Integer, Integer> move(Map<Pair<Integer,Integer>, Optional<Entity>> board, Pair<Integer, Integer> playerPosition, Pair<Integer, Integer> position) {
+    public Point2D move(Map<Point2D, Optional<Entity>> board, Point2D playerPosition, Point2D position) {
         List<MOVEMENT> movements = Arrays.asList(MOVEMENT.UP, MOVEMENT.DOWN, MOVEMENT.LEFT, MOVEMENT.RIGHT);
-        Map<Pair<Integer, Integer>, Integer> open = getDirections(movements, position);
-        Pair<Integer, Integer> q = new Pair<>(-1, -1);
+        Map<Point2D, Integer> open = getDirections(movements, position);
+        Point2D q = new Point2D(-1, -1);
         int g;
         int fMin = 100000;
         
@@ -32,10 +32,10 @@ public class FocusAiEnemy implements AiEnemy {
         return q;
     }
     
-    private Map<Pair<Integer, Integer>, Integer> getDirections(List<MOVEMENT> movements, Pair<Integer, Integer> position) {
-        Map<Pair<Integer, Integer>, Integer> directions = new HashMap<>();
+    private Map<Point2D, Integer> getDirections(List<MOVEMENT> movements, Point2D position) {
+        Map<Point2D, Integer> directions = new HashMap<>();
         for(MOVEMENT i : movements) {
-            directions.put(new Pair<>(position.getX()+i.x, position.getY()+i.y), 0);
+            directions.put(Point2D.sum(position, i.movement), 0);
         }
         return directions;
     }

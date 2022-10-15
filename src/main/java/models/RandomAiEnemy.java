@@ -7,10 +7,10 @@ import java.util.Random;
 public class RandomAiEnemy implements AiEnemy {
 
     @Override
-    public Pair<Integer, Integer> move(Map<Pair<Integer,Integer>,Optional<Entity>> board, Pair<Integer, Integer> playerPosition, Pair<Integer, Integer> position) {
+    public Point2D move(Map<Point2D,Optional<Entity>> board, Point2D playerPosition, Point2D position) {
         Random r = new Random();
         int randomSelect = r.nextInt(4);
-        Pair<Integer, Integer> newPosition = position;
+        Point2D newPosition = position;
         
         switch(randomSelect) {
         case 0:
