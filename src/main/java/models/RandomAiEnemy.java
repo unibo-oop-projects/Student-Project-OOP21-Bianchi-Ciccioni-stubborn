@@ -1,11 +1,13 @@
 package models;
 
+import java.util.Map;
+import java.util.Optional;
 import java.util.Random;
 
 public class RandomAiEnemy implements AiEnemy {
 
     @Override
-    public Pair<Integer, Integer> move(Pair<Integer, Integer> playerPosition, Pair<Integer, Integer> position) {
+    public Pair<Integer, Integer> move(Map<Pair<Integer,Integer>,Optional<Entity>> board, Pair<Integer, Integer> playerPosition, Pair<Integer, Integer> position) {
         Random r = new Random();
         int randomSelect = r.nextInt(4);
         Pair<Integer, Integer> newPosition = position;
