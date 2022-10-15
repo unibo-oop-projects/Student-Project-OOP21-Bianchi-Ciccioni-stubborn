@@ -9,11 +9,9 @@ public enum MOVEMENT {
     UP(0,1),
     DOWN(0,-1);
     
-    public final int x;
-    public final int y;
+    public final Point2D movement;
 
     MOVEMENT(int offsetX, int offsetY) {
-        this.x = offsetX;
-        this.y = offsetY;
+        this.movement = new Point2D(offsetX, offsetY);
     }
 }
