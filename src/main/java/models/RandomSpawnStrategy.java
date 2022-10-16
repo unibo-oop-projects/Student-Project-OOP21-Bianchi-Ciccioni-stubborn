@@ -15,10 +15,11 @@ public class RandomSpawnStrategy implements SpawnStrategy{
         Set<Point2D> spawnPoints = new HashSet<>();
         while(spawnPoints.size() < numPoints) {
             Point2D newPos = new Point2D(r.nextInt(width), r.nextInt(height));
-            if(newPos.getX() != width/2 && newPos.getY() != height/2) {
+            if(!newPos.equals(new Point2D(width/2, height/2))) {
                 spawnPoints.add(newPos);
             }
         }
+        System.out.println(spawnPoints.size());
         return spawnPoints;
     }
     

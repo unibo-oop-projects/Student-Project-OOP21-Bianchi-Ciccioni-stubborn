@@ -13,7 +13,6 @@ import java.util.stream.Stream;
 
 public class WorldMap{
 
-    //TODO cambiare al posto di static final di questi valori, come qualcosa preso da input
     private int board_width;
     private int board_height;
     private int num_enemies;
@@ -43,11 +42,6 @@ public class WorldMap{
     }
     
     /*
-     * METODI DA CREARE: SPAWN PERSONAGGIO, MOVIMENTO PERSONAGGIO, SPAWN COLLECTABLE,
-     *  SPAWN NEMICI.
-     */
-    
-    /*
      * pattern strategy utilizzato per lo spawn dei nemici e dei collectable
      */
     private void spawnEntity() {
@@ -63,7 +57,6 @@ public class WorldMap{
           //Set<Pair<Integer,Integer>> spawnPoints = this.spawnStrategy.getSpawnPoints(BOARD_WIDTH, BOARD_HEIGHT, NUM_ENEMIES + NUM_COLLECTABLES);
             Set<Point2D> enSpawnPoints = this.spawnStrategy.getSpawnPoints(this.board_width, this.board_height, this.num_enemies);
             Set<Point2D> collectSpawnPoints = this.spawnStrategy.getSpawnPoints(this.board_width, this.board_height, this.num_collectables);
-            
             Set<Point2D> everyPoint = this.spawnStrategy.getDoubleSpawnPoints(this.board_width, this.board_height, enSpawnPoints, collectSpawnPoints);
             Iterator<Point2D> pointIterator = everyPoint.iterator();
             //TODO sistemare questo ciclo con l'iterator (magari li genero tutti insieme e poi separo)

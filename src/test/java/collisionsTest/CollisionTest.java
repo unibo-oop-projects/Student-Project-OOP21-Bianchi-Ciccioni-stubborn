@@ -25,8 +25,8 @@ public class CollisionTest {
     
     static int WIDTH = 3;
     static int HEIGHT = 3;
-    static int NUM_ENEMIES = 8;
-    static int NUM_COLLECTABLES = 0;
+    static int NUM_ENEMIES = 7;
+    static int NUM_COLLECTABLES = 1;
     
     CollisionStrategy collisions = new CollisionImpl();
     WorldMap worldMap = new WorldMap(WIDTH,HEIGHT,NUM_ENEMIES,NUM_COLLECTABLES);
@@ -39,7 +39,4 @@ public class CollisionTest {
         System.out.println(board);
         assertTrue(board.get(playerPos).get() instanceof Player);
     }
-    
-    
-
 }
