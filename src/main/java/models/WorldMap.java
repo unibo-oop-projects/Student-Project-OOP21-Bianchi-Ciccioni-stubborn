@@ -31,13 +31,12 @@ public class WorldMap{
         this.spawnStrategy = new RandomSpawnStrategy();
         this.collisionStrategy = new CollisionImpl();
         this.playerPosition = new Point2D(board_width/2, board_height/2);
-        //this.board.putDAPPERTUTT(new Optional...)
         /*
         List<Pair<Integer,Integer>> grid = IntStream.rangeClosed(0, BOARD_WIDTH).boxed()
                  .flatMap(x -> IntStream.rangeClosed(0, BOARD_HEIGHT).boxed()
                          .map(y -> new Pair<>(x,y))).collect(Collectors.toList());*/
-        this.board = IntStream.rangeClosed(0, board_width).boxed()
-                    .flatMap(x -> IntStream.rangeClosed(0, board_height).boxed()
+        this.board = IntStream.range(0, board_width).boxed()
+                    .flatMap(x -> IntStream.range(0, board_height).boxed()
                     .map(y -> new Point2D(x,y))).collect(Collectors.toMap(x -> x, x -> Optional.empty()));
         this.board.put(this.playerPosition, Optional.of(new PlayerImpl()));
         this.spawnEntity();
