@@ -8,9 +8,10 @@ import models.CollisionImpl;
 import models.CollisionStrategy;
 import models.Entity;
 import models.MOVEMENT;
-import models.Pair;
 import models.Player;
 import models.Point2D;
+import models.RandomSpawnStrategy;
+import models.SpawnStrategy;
 import models.WorldMap;
 
 import java.util.ArrayList;
@@ -29,7 +30,8 @@ public class CollisionTest {
     static int NUM_COLLECTABLES = 1;
     
     CollisionStrategy collisions = new CollisionImpl();
-    WorldMap worldMap = new WorldMap(WIDTH,HEIGHT,NUM_ENEMIES,NUM_COLLECTABLES);
+    SpawnStrategy strategy = new RandomSpawnStrategy();
+    WorldMap worldMap = new WorldMap(WIDTH,HEIGHT,NUM_ENEMIES,NUM_COLLECTABLES, strategy);
     
     @Test
     public void testCollision() {

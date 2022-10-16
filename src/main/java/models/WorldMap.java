@@ -22,12 +22,12 @@ public class WorldMap{
     private SpawnStrategy spawnStrategy;
     private CollisionStrategy collisionStrategy;
     
-    public WorldMap(int width, int height, int enemies, int collectables) {
+    public WorldMap(int width, int height, int enemies, int collectables, SpawnStrategy strategy) {
         this.board_width = width;
         this.board_height = height;
         this.num_enemies = enemies;
         this.num_collectables = collectables;
-        this.spawnStrategy = new RandomSpawnStrategy();
+        this.spawnStrategy = strategy;
         this.collisionStrategy = new CollisionImpl();
         this.playerPosition = new Point2D(board_width/2, board_height/2);
         /*

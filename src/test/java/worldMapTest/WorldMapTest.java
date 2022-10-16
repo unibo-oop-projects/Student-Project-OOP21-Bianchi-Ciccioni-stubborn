@@ -28,8 +28,8 @@ public class WorldMapTest {
     static int NUM_COLLECTABLES = 15;
     static int EXPECTED_SIZE = 5;
     
-    private WorldMap worldMap = new WorldMap(WIDTH,HEIGHT,NUM_ENEMIES,NUM_COLLECTABLES);
     private SpawnStrategy randomStrategy = new RandomSpawnStrategy();
+    private WorldMap worldMap = new WorldMap(WIDTH,HEIGHT,NUM_ENEMIES,NUM_COLLECTABLES, randomStrategy);
     Point2D startPlayerPos = new Point2D(WIDTH/2,HEIGHT/2);
     Point2D randomPos = new Point2D(3,5);
     
