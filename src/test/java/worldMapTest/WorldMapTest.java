@@ -22,7 +22,7 @@ import java.util.Set;
 
 public class WorldMapTest {
     
-    private WorldMap worldMap = new WorldMap(50,50,5,15);
+    private WorldMap worldMap = new WorldMap(51,51,5,15);
     private SpawnStrategy randomStrategy = new RandomSpawnStrategy();
     Point2D startPlayerPos = new Point2D(25,25);
     
