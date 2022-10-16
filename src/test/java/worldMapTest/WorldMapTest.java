@@ -22,21 +22,31 @@ import java.util.Set;
 
 public class WorldMapTest {
     
-    private WorldMap worldMap = new WorldMap(51,51,5,15);
+    static int WIDTH = 51;
+    static int HEIGHT = 51;
+    static int NUM_ENEMIES = 5;
+    static int NUM_COLLECTABLES = 15;
+    static int EXPECTED_SIZE = 5;
+    
+    private WorldMap worldMap = new WorldMap(WIDTH,HEIGHT,NUM_ENEMIES,NUM_COLLECTABLES);
     private SpawnStrategy randomStrategy = new RandomSpawnStrategy();
-    Point2D startPlayerPos = new Point2D(25,25);
+    Point2D startPlayerPos = new Point2D(WIDTH/2,HEIGHT/2);
+    Point2D randomPos = new Point2D(3,5);
     
     
     @Test
     public void testRandomSpawnStrategy() {
-        Set<Point2D> set1 = this.randomStrategy.getSpawnPoints(10, 10, 5);
-        Point2D el = set1.iterator().next();
-        Set<Point2D> set2 = this.randomStrategy.getSpawnPoints(10, 10, 4);
-        set2.add(el);
+        int width = 10;
+        int height = 10;
+        int num_entities = 4;
+        Set<Point2D> set1 = this.randomStrategy.getSpawnPoints(width, height, num_entities);
+        set1.add(randomPos);
+        Set<Point2D> set2 = this.randomStrategy.getSpawnPoints(width, height, num_entities);
+        set2.add(randomPos);
         System.out.println(set2.size());
-        Set<Point2D> allSet = this.randomStrategy.getDoubleSpawnPoints(10, 10, set1, set2);
-        assertEquals(5,set1.size());
-        assertEquals(10,allSet.size());
+        Set<Point2D> allSet = this.randomStrategy.getDoubleSpawnPoints(width, height, set1, set2);
+        assertEquals(EXPECTED_SIZE,set1.size());
+        assertEquals(EXPECTED_SIZE * 2,allSet.size());
         assertTrue(allSet.containsAll(set1));
         assertTrue(allSet.containsAll(set2));
     }
@@ -45,9 +55,9 @@ public class WorldMapTest {
     public void testWorldMapCreation() {
         Map<Point2D,Optional<Entity>> board = worldMap.getBoard();
         long count = board.values().stream().filter(v -> v.isPresent()).count();
-        assertEquals(51*51,board.size());
+        assertEquals(WIDTH*HEIGHT,board.size());
         assertTrue(board.get(startPlayerPos).get() instanceof Player);
-        assertEquals(21,count);
+        assertEquals(NUM_ENEMIES + NUM_COLLECTABLES + 1,count);
     }
     
     @Test

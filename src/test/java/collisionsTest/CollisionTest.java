@@ -23,12 +23,17 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class CollisionTest {
     
+    static int WIDTH = 3;
+    static int HEIGHT = 3;
+    static int NUM_ENEMIES = 8;
+    static int NUM_COLLECTABLES = 0;
+    
     CollisionStrategy collisions = new CollisionImpl();
-    WorldMap worldMap = new WorldMap(3,3,8,0);
+    WorldMap worldMap = new WorldMap(WIDTH,HEIGHT,NUM_ENEMIES,NUM_COLLECTABLES);
     
     @Test
     public void testCollision() {
-        Point2D playerPos = new Point2D(1,1);
+        Point2D playerPos = new Point2D(WIDTH/2,HEIGHT/2);
         worldMap.movePlayer(MOVEMENT.LEFT);
         Map<Point2D,Optional<Entity>> board = worldMap.getBoard();
         System.out.println(board);

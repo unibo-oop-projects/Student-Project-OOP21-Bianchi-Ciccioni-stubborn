@@ -12,11 +12,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class CollectableTest {
     
+    static int NUM_COLL = 10;
     List<Collectable> listCollectables = new ArrayList<>();
     
     @Test
     public void testCollectable() {
-        for(int i = 0; i < 10; i++) {
+        for(int i = 0; i < NUM_COLL; i++) {
             listCollectables.add(new CollectableImpl());
         }
         listCollectables.forEach(col -> System.out.println(col.getPoints()));
