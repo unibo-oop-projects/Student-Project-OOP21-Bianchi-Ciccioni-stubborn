@@ -1,7 +1,7 @@
 package models;
 
 public interface Entity {
-    Pair<Integer, Integer> getPosition();
+    public Point2D getPosition();
     
-    void setPosition(Pair<Integer, Integer> position);
+    public void setPosition(Point2D position);
 }

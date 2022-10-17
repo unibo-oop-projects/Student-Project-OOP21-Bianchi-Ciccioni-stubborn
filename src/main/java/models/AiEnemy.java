@@ -1,7 +1,10 @@
 package models;
 
+import java.util.Map;
+import java.util.Optional;
+
 public interface AiEnemy {
     
-    public Pair<Integer, Integer> move(Pair<Integer, Integer> position);
+    public Point2D move(Map<Point2D,Optional<Entity>> board, Point2D playerPosition, Point2D position);
     
 }
