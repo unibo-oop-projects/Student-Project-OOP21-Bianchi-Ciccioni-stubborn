@@ -19,13 +19,14 @@ public final class BoardController {
     static private final int ENEMIES = 8;
     static private final int COLLECTABLES = 10;
     
-    private WorldMap gameWorldMap;
     private SpawnStrategy spawnStrat = new RandomSpawnStrategy();
+    private WorldMap gameWorldMap = new WorldMap(WIDTH, HEIGHT, ENEMIES, COLLECTABLES, spawnStrat);
+    
     
     
     @FXML
     public void initialize() {
-        this.gameWorldMap = new WorldMap(WIDTH, HEIGHT, ENEMIES, COLLECTABLES, spawnStrat);
+         
     }
     
 

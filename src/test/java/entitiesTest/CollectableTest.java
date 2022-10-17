@@ -21,6 +21,9 @@ public class CollectableTest {
             listCollectables.add(new CollectableImpl());
         }
         listCollectables.forEach(col -> System.out.println(col.getPoints()));
+        assertEquals(NUM_COLL, listCollectables.size());
+        listCollectables.removeIf(col -> col.getPoints() < 0);
+        assertEquals(NUM_COLL, listCollectables.size());
     }
 
 }
