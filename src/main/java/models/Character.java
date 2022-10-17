@@ -1,7 +1,7 @@
 package models;
 
 public interface Character extends Entity {
-    int getHealth();
+    public int getHealth();
     
-    void setHealth(int value);
+    public void setHealth(int value);
 }
