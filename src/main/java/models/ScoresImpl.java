@@ -19,6 +19,7 @@ public class ScoresImpl implements Scores {
         this.scores.add(score);
     }
     
+    // TODO riempire la lista this.scores con i dati del file .txt degli scores
     @Override
     public List<String> getAllScores() {
         return this.scores;
@@ -38,7 +39,7 @@ public class ScoresImpl implements Scores {
         
         try {
             readFile = new FileReader("score.txt");
-            reader = new BufferedReader(readFile);
+            reader = new BufferedReader(readFile); // TODO change this method for read all line of the file .txt
             return reader.readLine(); // for now this method return the first line of the file
         } catch (Exception e) {
             return "0";
@@ -54,7 +55,7 @@ public class ScoresImpl implements Scores {
     }
     
     private void writeScoreIntoFile(String score) {
-        File scoreFile = new File("score.txt");
+        File scoreFile = new File("score.txt"); // create new directory scores
         if(!scoreFile.exists()) {
             try {
                 scoreFile.createNewFile();
