@@ -2,11 +2,11 @@ package models;
 
 public class PlayerImpl implements Player {
     
-    private Pair<Integer, Integer> position;
+    private Point2D position;
     private int health;
     private final static int MAXHEALTH = 3;
     
-    public PlayerImpl(Pair<Integer, Integer> position, int health) {
+    public PlayerImpl(Point2D position, int health) {
         this.position = position;
         this.health = health;
     }
@@ -24,12 +24,12 @@ public class PlayerImpl implements Player {
     }
 
     @Override
-    public Pair<Integer, Integer> getPosition() {
+    public Point2D getPosition() {
         return this.position;
     }
 
     @Override
-    public void setPosition(Pair<Integer, Integer> position) {
+    public void setPosition(Point2D position) {
         this.position = position;
     }
 

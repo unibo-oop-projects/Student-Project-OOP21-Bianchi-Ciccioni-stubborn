@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class CollectableImpl implements Collectable{
     
-    private Pair<Integer,Integer> position;
+    private Point2D position;
     private COLLECTABLETYPE type;
     
     public CollectableImpl() {
@@ -13,12 +13,12 @@ public class CollectableImpl implements Collectable{
     
 
     @Override
-    public Pair<Integer, Integer> getPosition() {
+    public Point2D getPosition() {
         return this.position;
     }
 
     @Override
-    public void setPosition(Pair<Integer, Integer> position) {
+    public void setPosition(Point2D position) {
         this.position = position;
     }
 
