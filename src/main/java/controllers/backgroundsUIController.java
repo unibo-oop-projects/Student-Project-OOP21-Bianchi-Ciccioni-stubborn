@@ -1,5 +1,6 @@
 package controllers;
 
+/*
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
@@ -46,7 +47,7 @@ public class backgroundsUIController {
 		application.Backgrounds.endGame();
 		application.Menu.openMenu();
 		/* scoreBoard.add(finalScore);	sostituire a
-		 * scoreBoard il nome dato al set dei punteggi */ 
+		 * scoreBoard il nome dato al set dei punteggi */ /*
 	};
 
     public static void refillLife() {
@@ -75,4 +76,4 @@ public class backgroundsUIController {
     	scorePoints += gain;
     	lblScore.setText(scorePoints.toString());
     }
-}
+}*/
