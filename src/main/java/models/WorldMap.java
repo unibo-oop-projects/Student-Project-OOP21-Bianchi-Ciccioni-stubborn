@@ -37,7 +37,7 @@ public class WorldMap{
         this.board = IntStream.range(0, board_width).boxed()
                     .flatMap(x -> IntStream.range(0, board_height).boxed()
                     .map(y -> new Point2D(x,y))).collect(Collectors.toMap(x -> x, x -> Optional.empty()));
-        this.board.put(this.playerPosition, Optional.of(new PlayerImpl()));
+        this.board.put(this.playerPosition, Optional.of(new PlayerImpl(this.playerPosition, 3)));
         this.spawnEntity();
     }
     
@@ -61,7 +61,8 @@ public class WorldMap{
             Iterator<Point2D> pointIterator = everyPoint.iterator();
             //TODO sistemare questo ciclo con l'iterator (magari li genero tutti insieme e poi separo)
             for(int i = 0; i < this.num_enemies; i ++) {
-                this.board.put(pointIterator.next(), Optional.of(new EnemyImpl()));
+                Point2D enemyPos = pointIterator.next();
+                this.board.put(enemyPos, Optional.of(new EnemyImpl(enemyPos, 1, this.getEnemyAi())));
             }
             for(int i = this.num_enemies; i < (this.num_enemies + this.num_collectables); i ++) {
                 this.board.put(pointIterator.next(), Optional.of(new CollectableImpl()));
@@ -81,6 +82,12 @@ public class WorldMap{
     
     public Map<Point2D,Optional<Entity>> getBoard() {
         return this.board;
+    }
+    
+    private AiEnemy getEnemyAi() {
+        Random r = new Random();
+        int randomSelect = r.nextInt(2);
+        return randomSelect == 0 ? new RandomAiEnemy() : new FocusAiEnemy();
     }
     
     /*
