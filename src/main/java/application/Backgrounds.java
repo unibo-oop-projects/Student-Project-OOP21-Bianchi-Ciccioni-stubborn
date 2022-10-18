@@ -25,4 +25,10 @@ public final class Backgrounds extends Application {
         primaryStage.show();
     }
 
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        // TODO Auto-generated method stub
+        
+    }
+
 }
