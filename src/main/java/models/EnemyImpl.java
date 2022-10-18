@@ -25,7 +25,7 @@ public class EnemyImpl implements Enemy {
 
     @Override
     public void setHealth(int value) {
-        if(this.health < 1) {
+        if(this.health < MAXHEALTH) {
             this.health = this.health + value;
         }
     }
@@ -39,6 +39,11 @@ public class EnemyImpl implements Enemy {
     @Override
     public void setPosition(Point2D position) {
         this.position = position;
+    }
+
+    @Override
+    public AiEnemy getAi() {
+        return this.aiEnemy;
     }
 
 }
