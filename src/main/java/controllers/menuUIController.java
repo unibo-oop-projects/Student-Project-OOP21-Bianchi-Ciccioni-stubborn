@@ -1,5 +1,5 @@
 package controllers;
-
+/*
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
@@ -22,6 +22,7 @@ public static final class menuUIController {
     public static void btnScoreOnClickHandler() {
         application.Menu.hideMenu();
         /* startBoard();	sostituire a startBoard il nome dato alla
-         *  funzione che apre la visualizzazione del set dei punteggi */
+         *  funzione che apre la visualizzazione del set dei punteggi */ /*
     }
 }
+*/

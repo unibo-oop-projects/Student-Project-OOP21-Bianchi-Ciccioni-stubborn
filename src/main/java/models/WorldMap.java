@@ -30,10 +30,6 @@ public class WorldMap{
         this.spawnStrategy = strategy;
         this.collisionStrategy = new CollisionImpl();
         this.playerPosition = new Point2D(board_width/2, board_height/2);
-        /*
-        List<Pair<Integer,Integer>> grid = IntStream.rangeClosed(0, BOARD_WIDTH).boxed()
-                 .flatMap(x -> IntStream.rangeClosed(0, BOARD_HEIGHT).boxed()
-                         .map(y -> new Pair<>(x,y))).collect(Collectors.toList());*/
         this.board = IntStream.range(0, board_width).boxed()
                     .flatMap(x -> IntStream.range(0, board_height).boxed()
                     .map(y -> new Point2D(x,y))).collect(Collectors.toMap(x -> x, x -> Optional.empty()));
@@ -45,21 +41,12 @@ public class WorldMap{
      * pattern strategy utilizzato per lo spawn dei nemici e dei collectable
      */
     private void spawnEntity() {
-        /*
-        if(entity.getClass() == Player) 
-            BOARD.put(this.playerPosition, Optional.of(entity));
-        } else {
-            Random r = new Random();
-            Pair<Integer,Integer> entityPos = new Pair<>(r.nextInt(BOARD_WIDTH), r.nextInt(BOARD_HEIGHT));
-            BOARD.put(entityPos, Optional.of(entity));
-        }*/
         if(this.spawnStrategy.checkNumPoints(this.board_width * this.board_height, this.num_enemies + this.num_collectables)) {
           //Set<Pair<Integer,Integer>> spawnPoints = this.spawnStrategy.getSpawnPoints(BOARD_WIDTH, BOARD_HEIGHT, NUM_ENEMIES + NUM_COLLECTABLES);
             Set<Point2D> enSpawnPoints = this.spawnStrategy.getSpawnPoints(this.board_width, this.board_height, this.num_enemies);
             Set<Point2D> collectSpawnPoints = this.spawnStrategy.getSpawnPoints(this.board_width, this.board_height, this.num_collectables);
             Set<Point2D> everyPoint = this.spawnStrategy.getDoubleSpawnPoints(this.board_width, this.board_height, enSpawnPoints, collectSpawnPoints);
             Iterator<Point2D> pointIterator = everyPoint.iterator();
-            //TODO sistemare questo ciclo con l'iterator (magari li genero tutti insieme e poi separo)
             for(int i = 0; i < this.num_enemies; i ++) {
                 Point2D enemyPos = pointIterator.next();
                 this.board.put(enemyPos, Optional.of(new EnemyImpl(enemyPos, 1, this.getEnemyAi())));
