@@ -1,9 +1,7 @@
 package models;
 
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 
 public class CollisionImpl implements CollisionStrategy {
 
