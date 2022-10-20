@@ -19,43 +19,21 @@ public class ScoresImpl implements Scores {
         this.scores.add(score);
     }
     
-    // TODO riempire la lista this.scores con i dati del file .txt degli scores
     @Override
     public List<String> getAllScores() {
         return this.scores;
     }
-
+    
+    
     @Override
     public String getScore() {
         String score = readScoreFromFile();
         return score;
     }
     
-    private String readScoreFromFile() { 
-        // format name:score (ex: Marco:100)
-        
-        FileReader readFile = null;
-        BufferedReader reader = null;
-        
-        try {
-            readFile = new FileReader("score.txt");
-            reader = new BufferedReader(readFile); // TODO change this method for read all line of the file .txt
-            return reader.readLine(); // for now this method return the first line of the file
-        } catch (Exception e) {
-            return "0";
-        } finally {
-            try {
-                if(reader != null) {
-                    reader.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
     
     private void writeScoreIntoFile(String score) {
-        File scoreFile = new File("score.txt"); // create new directory scores
+        File scoreFile = new File("score.txt");
         if(!scoreFile.exists()) {
             try {
                 scoreFile.createNewFile();
@@ -81,5 +59,30 @@ public class ScoresImpl implements Scores {
             }
         }
     }
+    
+    
+    private String readScoreFromFile() { 
+        // format name:score (ex: Marco:100)
+        
+        FileReader readFile = null;
+        BufferedReader reader = null;
+        
+        try {
+            readFile = new FileReader("score.txt");
+            reader = new BufferedReader(readFile); 
+            return reader.readLine();
+        } catch (Exception e) {
+            return "0";
+        } finally {
+            try {
+                if(reader != null) {
+                    reader.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    
 
 }

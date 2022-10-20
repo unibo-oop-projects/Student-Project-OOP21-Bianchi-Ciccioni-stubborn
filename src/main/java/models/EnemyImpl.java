@@ -1,5 +1,7 @@
 package models;
 
+import java.util.Random;
+
 public class EnemyImpl implements Enemy {
     
     private Point2D position;
@@ -10,7 +12,10 @@ public class EnemyImpl implements Enemy {
     public EnemyImpl(Point2D position, int health, AiEnemy aiEnemy) {
         this.position = position;
         this.health = health;
-        this.aiEnemy = aiEnemy;
+        
+        Random r = new Random();
+        int randomSelect = r.nextInt(2);
+        this.aiEnemy = randomSelect == 0 ? new RandomAiEnemy() : new FocusAiEnemy();
     }
 
     @Override
@@ -20,7 +25,7 @@ public class EnemyImpl implements Enemy {
 
     @Override
     public void setHealth(int value) {
-        if(this.health < 1) {
+        if(this.health < MAXHEALTH) {
             this.health = this.health + value;
         }
     }
@@ -34,6 +39,11 @@ public class EnemyImpl implements Enemy {
     @Override
     public void setPosition(Point2D position) {
         this.position = position;
+    }
+
+    @Override
+    public AiEnemy getAi() {
+        return this.aiEnemy;
     }
 
 }
