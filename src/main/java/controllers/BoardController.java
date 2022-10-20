@@ -27,14 +27,13 @@ public final class BoardController {
     
     private final SpawnStrategy spawnStrat;
     private final WorldMap gameWorldMap;
-    private final StubbornView worldMapView;
+    private StubbornView worldMapView;
     @FXML
     private Pane mainPane;
     
     public BoardController() {
         this.spawnStrat  = new RandomSpawnStrategy();
         this.gameWorldMap = new WorldMap(WIDTH, HEIGHT, ENEMIES, COLLECTABLES, spawnStrat);
-        this.worldMapView = new StubbornViewJavaFX();
         this.worldMapView.addDirectionalKeyPressHandler(this::onDirectionalKeyPress);
         //così il player può fare solo una partita perchè salvo la worldMap nel controller
         //per fare + partite posso fare un metodo privato che rigenera la mappa
@@ -61,9 +60,11 @@ public final class BoardController {
         //the real code were the friends we made along the way
         System.out.println("the real code were the friends we made along the way");
         Stage boardStage = (Stage)this.mainPane.getScene().getWindow();
+        this.worldMapView = new StubbornViewJavaFX(boardStage);
         Canvas canvas = new Canvas(300, 250);
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.setFill(Paint.valueOf("#009688"));
+        gc.fillRect(0, 0, WIDTH, HEIGHT);
         this.mainPane.getChildren().add(canvas);
     }
     
