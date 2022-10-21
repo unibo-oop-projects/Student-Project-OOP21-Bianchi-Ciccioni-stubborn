@@ -11,12 +11,12 @@ import javafx.stage.Stage;
  */
 public final class Main extends Application {
 
-    private static final int SCENE_WIDTH = 500;
-    private static final int SCENE_HEIGHT = 300;
+    private static final int SCENE_WIDTH = 1000;
+    private static final int SCENE_HEIGHT = 1000;
 
     @Override
     public void start(final Stage stage) throws Exception {
-        final Parent root = FXMLLoader.load(ClassLoader.getSystemResource("layouts/board.fxml"));
+        final Parent root = FXMLLoader.load(ClassLoader.getSystemResource("layouts/menu.fxml"));
         final Scene scene = new Scene(root, SCENE_WIDTH, SCENE_HEIGHT);
         // Stage configuration
         stage.setTitle("Stubborn");
