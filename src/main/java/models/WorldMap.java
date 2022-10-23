@@ -2,14 +2,12 @@ package models;
 
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 public class WorldMap{
 
@@ -75,8 +73,7 @@ public class WorldMap{
         Random r = new Random();
         int randomSelect = r.nextInt(2);
         return randomSelect == 0 ? new RandomAiEnemy() : new FocusAiEnemy();
-    }
-    
+    }   
     /*
      * Scrivere i test dei models!!
      * Cominciare a scrivere note per la relazione del progetto (riguardo DESIGN/ARCHITETTURA e
