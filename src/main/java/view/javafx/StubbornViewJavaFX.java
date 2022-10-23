@@ -20,8 +20,8 @@ public class StubbornViewJavaFX implements StubbornView {
     
     private Stage boardStage;
 
-    public StubbornViewJavaFX(Stage boardStage) {
-        try {
+    public StubbornViewJavaFX() {
+        /*try {
          this.boardStage = boardStage;
          this.boardStage.setTitle("Stubborn");
          Parent root = new Parent();
@@ -39,7 +39,7 @@ public class StubbornViewJavaFX implements StubbornView {
          }
          catch (Exception e) {
          System.out.println(e.getMessage());
-         }
+         }*/
     }
     
     @Override
