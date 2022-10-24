@@ -74,7 +74,7 @@ public final class BoardController {
     private void initalizeView() {
         //the real code were the friends we made along the way
         System.out.println("the real code were the friends we made along the way");
-        Stage boardStage = (Stage)this.mainPane.getScene().getWindow();
+        //Stage boardStage = (Stage)this.mainPane.getScene().getWindow();
         BackgroundFill bf = new BackgroundFill(Paint.valueOf("#000000"),
                 CornerRadii.EMPTY , Insets.EMPTY);
         this.mainPane.setBackground(new Background(bf));
@@ -101,6 +101,20 @@ public final class BoardController {
          */
         //gc.clearRect(0, 0, WIDTH, HEIGHT);
         //gc.fillRect(WIDTH, HEIGHT, WIDTH, HEIGHT);
+    }
+    
+    @FXML
+    private void updateMap(MOVEMENT movement) {
+        Point2D playerPos = this.getPlayerPos(); 
+        Canvas canvas = this.mainPane.lookup("canvas");
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        gc.clearRect(playerPos.getX() * 8.5, playerPos.getY() * 5, WIDTH, HEIGHT);
+        this.gameWorldMap.movePlayer(movement);
+        playerPos = this.getPlayerPos(); 
+        gc.setFill(Paint.valueOf("#009630"));
+        gc.fillRect(playerPos.getX() * 8.5, playerPos.getY() * 5, WIDTH, HEIGHT);
+        //this.mainPane.getChildren().add(selectedImage);
+        this.mainPane.getChildren().add(canvas);
     }
     
     private Point2D getPlayerPos() {

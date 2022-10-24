@@ -2,12 +2,9 @@ package worldMapTest;
 
 import org.junit.jupiter.api.Test;
 
-import models.Enemy;
 import models.Entity;
 import models.MOVEMENT;
-import models.Pair;
 import models.Player;
-import models.PlayerImpl;
 import models.Point2D;
 import models.RandomSpawnStrategy;
 import models.SpawnStrategy;
