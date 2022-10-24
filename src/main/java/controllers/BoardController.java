@@ -82,7 +82,7 @@ public final class BoardController {
         Canvas canvas = new Canvas(300, 250);
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.setFill(Paint.valueOf("#009630"));
-        gc.fillRect(playerPos.getX(), playerPos.getY(), WIDTH, HEIGHT);
+        gc.fillRect(this.mainPane.getHeight()/2, this.mainPane.getHeight()/2, WIDTH, HEIGHT);
         //this.mainPane.getChildren().add(selectedImage);
         this.mainPane.getChildren().add(canvas);
         
