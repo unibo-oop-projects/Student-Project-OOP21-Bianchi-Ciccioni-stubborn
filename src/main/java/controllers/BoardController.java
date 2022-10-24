@@ -1,5 +1,6 @@
 package controllers;
 
+import models.Enemy;
 import models.Entity;
 import models.MOVEMENT;
 import models.Player;
@@ -23,6 +24,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -82,7 +85,7 @@ public final class BoardController {
         Canvas canvas = new Canvas(300, 250);
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.setFill(Paint.valueOf("#009630"));
-        gc.fillRect(this.mainPane.getHeight()/2, this.mainPane.getHeight()/2, WIDTH, HEIGHT);
+        gc.fillRect(playerPos.getX() * 8.5, playerPos.getY() * 5, WIDTH, HEIGHT);
         //this.mainPane.getChildren().add(selectedImage);
         this.mainPane.getChildren().add(canvas);
         
@@ -108,6 +111,26 @@ public final class BoardController {
             }
         }
         return playerPos;
+    }
+    
+    private List<Point2D> getEnemiesPos() {
+        List<Point2D> enemiesPos = new ArrayList<>();
+        for(Entry<Point2D, Optional<Entity>> i : this.gameWorldMap.getBoard().entrySet()) {
+            if( i.getValue().isPresent() && i.getValue().get() instanceof Enemy) {
+                enemiesPos.add(i.getKey());
+            }
+        }
+        return enemiesPos;
+    }
+    
+    private List<Point2D> getEntitiesPos(Entity entity) {
+        List<Point2D> enemiesPos = new ArrayList<>();
+        for(Entry<Point2D, Optional<Entity>> i : this.gameWorldMap.getBoard().entrySet()) {
+            if( i.getValue().isPresent() && i.getValue().get().getClass().equals(entity.getClass())) {
+                enemiesPos.add(i.getKey());
+            }
+        }
+        return enemiesPos;
     }
     
     

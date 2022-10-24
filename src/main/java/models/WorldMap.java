@@ -36,7 +36,11 @@ public class WorldMap{
     }
     
     /*
-     * pattern strategy utilizzato per lo spawn dei nemici e dei collectable
+     * pattern strategy utilized in order to spawn each entity in the worldmap at the start of the game.
+     * we decided to use a RandomSpawnStrategy to create random possible positions where our entities
+     * will be instantiated. It internally uses a 2-way combinator pattern: at first, it generates
+     * a Set of positions for the enemies, then for the collectables; after that, it combines
+     * this two sets and checks if there are duplicates, regenerating new positions if so.
      */
     private void spawnEntity() {
         if(this.spawnStrategy.checkNumPoints(this.board_width * this.board_height, this.num_enemies + this.num_collectables)) {
@@ -55,6 +59,11 @@ public class WorldMap{
         }
     }
     
+    /*
+     * this is the logical method used to move the player character: after receiving a specific
+     * movement enum, we check if there is a possible collision with an enemy or the worldmap boundaries;
+     * if not, then we move the player to a nearby cell of our map based on the input movement.
+     */
     public void movePlayer(MOVEMENT movement) {
         Point2D newPos = Point2D.sum(this.playerPosition, movement.movement);
         if(!this.collisionStrategy.checkCollisions(this.getBoard(), newPos, this.board_width, this.board_height)){
@@ -69,6 +78,9 @@ public class WorldMap{
         return this.board;
     }
     
+    /*
+     * this is used to set a possible random Ai to an enemy
+     */
     private AiEnemy getEnemyAi() {
         Random r = new Random();
         int randomSelect = r.nextInt(2);
