@@ -17,6 +17,8 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -44,12 +46,13 @@ public final class BoardController {
     private StubbornView worldMapView;
     @FXML
     private Pane mainPane;
+    private Canvas playerCanvas;
     
     public BoardController() {
         this.spawnStrat  = new RandomSpawnStrategy();
         this.gameWorldMap = new WorldMap(WIDTH, HEIGHT, ENEMIES, COLLECTABLES, spawnStrat);
         this.worldMapView = new StubbornViewJavaFX();
-        this.worldMapView.addDirectionalKeyPressHandler(this::onDirectionalKeyPress);
+        //this.worldMapView.addDirectionalKeyPressHandler(this::onDirectionalKeyPress);
         //così il player può fare solo una partita perchè salvo la worldMap nel controller
         //per fare + partite posso fare un metodo privato che rigenera la mappa
         //MAI METTERE UN HANDLER DENTRO UPDATEWORLDMAP (altrimenti ciclo)
@@ -60,9 +63,25 @@ public final class BoardController {
          */
     }
     
-    private void onDirectionalKeyPress(MOVEMENT m) {
-        this.gameWorldMap.movePlayer(m);
-        this.worldMapView.updateWorldMap(this.gameWorldMap);
+    @FXML
+    private void onDirectionalKeyPress(final KeyEvent keyEvent) {
+        KeyCode key = keyEvent.getCode();
+        switch(key) {
+            case W: 
+            case UP: this.updateMap(MOVEMENT.UP);
+                break;
+            case S:
+            case DOWN: this.updateMap(MOVEMENT.DOWN);
+                break;
+            case A:
+            case LEFT: this.updateMap(MOVEMENT.LEFT);
+                break;
+            case D:
+            case RIGHT: this.updateMap(MOVEMENT.RIGHT);
+                break;
+        default:
+            break;
+        }
     }
     
     @FXML
@@ -74,7 +93,9 @@ public final class BoardController {
     private void initalizeView() {
         //the real code were the friends we made along the way
         System.out.println("the real code were the friends we made along the way");
-        //Stage boardStage = (Stage)this.mainPane.getScene().getWindow();
+        Stage boardStage = (Stage)this.mainPane.getScene().getWindow();
+        boardStage.setWidth(200);
+        boardStage.setHeight(200);
         BackgroundFill bf = new BackgroundFill(Paint.valueOf("#000000"),
                 CornerRadii.EMPTY , Insets.EMPTY);
         this.mainPane.setBackground(new Background(bf));
@@ -82,12 +103,15 @@ public final class BoardController {
         Point2D playerPos = this.getPlayerPos(); 
         //Image playerSprite = new Image("src/main/resources/sprites/playerStandard.png");
         //ImageView selectedImage = new ImageView(playerSprite);  
-        Canvas canvas = new Canvas(300, 250);
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-        gc.setFill(Paint.valueOf("#009630"));
-        gc.fillRect(playerPos.getX() * 8.5, playerPos.getY() * 5, WIDTH, HEIGHT);
         //this.mainPane.getChildren().add(selectedImage);
-        this.mainPane.getChildren().add(canvas);
+        this.playerCanvas = new Canvas(30, 25);
+        this.playerCanvas.setLayoutX(playerPos.getX()*3);
+        this.playerCanvas.setLayoutY(playerPos.getY()*3);
+        GraphicsContext gc = this.playerCanvas.getGraphicsContext2D();
+        gc.setFill(Paint.valueOf("#009630"));
+        gc.fillRect(0, 0, WIDTH, HEIGHT);
+        //this.mainPane.getChildren().add(selectedImage);
+        this.mainPane.getChildren().add(this.playerCanvas);
         
         /*
          * cercare un modo per fare sì che il canvas si sposti di uno scacco (di una dimensione
@@ -103,18 +127,17 @@ public final class BoardController {
         //gc.fillRect(WIDTH, HEIGHT, WIDTH, HEIGHT);
     }
     
-    @FXML
     private void updateMap(MOVEMENT movement) {
-        Point2D playerPos = this.getPlayerPos(); 
-        Canvas canvas = this.mainPane.lookup("canvas");
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-        gc.clearRect(playerPos.getX() * 8.5, playerPos.getY() * 5, WIDTH, HEIGHT);
+        GraphicsContext gc = this.playerCanvas.getGraphicsContext2D();
+        gc.setFill(Paint.valueOf("#000000"));
+        gc.fillRect(0, 0, WIDTH, HEIGHT);
         this.gameWorldMap.movePlayer(movement);
-        playerPos = this.getPlayerPos(); 
+        Point2D playerPos = this.getPlayerPos(); 
+        this.playerCanvas.setLayoutX(playerPos.getX()*3);
+        this.playerCanvas.setLayoutY(playerPos.getY()*3);
         gc.setFill(Paint.valueOf("#009630"));
-        gc.fillRect(playerPos.getX() * 8.5, playerPos.getY() * 5, WIDTH, HEIGHT);
+        gc.fillRect(0, 0, WIDTH, HEIGHT);
         //this.mainPane.getChildren().add(selectedImage);
-        this.mainPane.getChildren().add(canvas);
     }
     
     private Point2D getPlayerPos() {
