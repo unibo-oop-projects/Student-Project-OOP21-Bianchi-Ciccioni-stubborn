@@ -1,10 +1,13 @@
 package scoresTest;
 
+import models.Pair;
 import models.Scores;
 import models.ScoresImpl;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.List;
 
 public class ScoresTest {
     
@@ -12,24 +15,18 @@ public class ScoresTest {
     
     @Test
     public void writeScoreTest() {
-        s.setScore("Marco:130");
+        s.setScore("Marco", 50);
+        s.setScore("Matteo", 150);
+        s.setScore("Andrea", 180);
+        List<Pair<String, Integer>> result = s.getAllScores();
+        assertTrue(result.size() == 3);
     }
     
     @Test
     public void readScoreTest() {
-        String expected = "Marco:130";
-        String result = s.getScore();
-        System.out.println(result);
-        assertEquals(expected, result);
+        Pair<String, Integer> expected = new Pair<>("Marco", 50);
+        List<Pair<String, Integer>> result = s.getAllScores();
+        assertTrue(result.contains(expected));
     }
-    
-    @Test
-    public void checkListScore() {
-        s.setScore("Guest:200");
-        s.setScore("Guest1:10");
-        s.setScore("Guest2:120");
-        assertEquals(s.getAllScores().size(), 3);
-        assertTrue(s.getAllScores().get(0).equals("Guest:200"));
-        assertTrue(s.getAllScores().get(2).equals("Guest2:120"));
-    }
+
 }
