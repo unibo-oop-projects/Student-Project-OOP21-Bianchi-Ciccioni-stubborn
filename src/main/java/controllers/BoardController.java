@@ -13,6 +13,7 @@ import view.javafx.StubbornViewJavaFX;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -65,13 +66,14 @@ public final class BoardController {
     
     @FXML
     private void onDirectionalKeyPress(final KeyEvent keyEvent) {
+        System.out.println("ciao");
         KeyCode key = keyEvent.getCode();
         switch(key) {
             case W: 
-            case UP: this.updateMap(MOVEMENT.UP);
+            case UP: this.updateMap(MOVEMENT.DOWN);
                 break;
             case S:
-            case DOWN: this.updateMap(MOVEMENT.DOWN);
+            case DOWN: this.updateMap(MOVEMENT.UP);
                 break;
             case A:
             case LEFT: this.updateMap(MOVEMENT.LEFT);
@@ -91,23 +93,25 @@ public final class BoardController {
 
     
     private void initalizeView() {
-        //the real code were the friends we made along the way
-        System.out.println("the real code were the friends we made along the way");
         Stage boardStage = (Stage)this.mainPane.getScene().getWindow();
-        boardStage.setWidth(200);
-        boardStage.setHeight(200);
+        boardStage.setWidth(500);
+        boardStage.setHeight(500);
+        Scene boardScene = this.mainPane.getScene();
+        boardScene.getRoot().requestFocus();
         BackgroundFill bf = new BackgroundFill(Paint.valueOf("#000000"),
                 CornerRadii.EMPTY , Insets.EMPTY);
         this.mainPane.setBackground(new Background(bf));
         //Rectangle2D screenBounds = Screen.getPrimary().getBounds();
-        Point2D playerPos = this.getPlayerPos(); 
-        //Image playerSprite = new Image("src/main/resources/sprites/playerStandard.png");
-        //ImageView selectedImage = new ImageView(playerSprite);  
+        Point2D playerPos = this.gameWorldMap.getPlayerPos();
+        System.out.println(playerPos); 
         //this.mainPane.getChildren().add(selectedImage);
         this.playerCanvas = new Canvas(30, 25);
-        this.playerCanvas.setLayoutX(playerPos.getX()*3);
-        this.playerCanvas.setLayoutY(playerPos.getY()*3);
+        this.playerCanvas.setLayoutX(playerPos.getX()*9);
+        this.playerCanvas.setLayoutY(playerPos.getY()*9);
+        //Image playerSprite = new Image("src/main/resources/sprites/playerStandard.png",WIDTH,HEIGHT,true,true);
+        //ImageView selectedImage = new ImageView(playerSprite); 
         GraphicsContext gc = this.playerCanvas.getGraphicsContext2D();
+        //gc.drawImage(playerSprite, 0, 0, WIDTH, HEIGHT);
         gc.setFill(Paint.valueOf("#009630"));
         gc.fillRect(0, 0, WIDTH, HEIGHT);
         //this.mainPane.getChildren().add(selectedImage);
@@ -123,52 +127,26 @@ public final class BoardController {
          * l'obiettivo è fare sì che quando chiamo il movement, allora si sposta anche il player
          * (devo recuperare la posizione del player e spostarla a livello grafico)
          */
-        //gc.clearRect(0, 0, WIDTH, HEIGHT);
-        //gc.fillRect(WIDTH, HEIGHT, WIDTH, HEIGHT);
+        /*
+        gc.clearRect(0, 0, WIDTH, HEIGHT);
+        this.playerCanvas.setLayoutX(playerPos.getX()*5);
+        this.playerCanvas.setLayoutY(playerPos.getY()*5);
+        gc.fillRect(0, 0, WIDTH, HEIGHT);*/
     }
     
     private void updateMap(MOVEMENT movement) {
         GraphicsContext gc = this.playerCanvas.getGraphicsContext2D();
-        gc.setFill(Paint.valueOf("#000000"));
-        gc.fillRect(0, 0, WIDTH, HEIGHT);
-        this.gameWorldMap.movePlayer(movement);
-        Point2D playerPos = this.getPlayerPos(); 
-        this.playerCanvas.setLayoutX(playerPos.getX()*3);
-        this.playerCanvas.setLayoutY(playerPos.getY()*3);
         gc.setFill(Paint.valueOf("#009630"));
+        gc.clearRect(0, 0, WIDTH, HEIGHT);
+        this.gameWorldMap.movePlayer(movement);
+        Point2D playerPos = this.gameWorldMap.getPlayerPos();
+        this.playerCanvas.setLayoutX(playerPos.getX()*5);
+        this.playerCanvas.setLayoutY(playerPos.getY()*5);
         gc.fillRect(0, 0, WIDTH, HEIGHT);
         //this.mainPane.getChildren().add(selectedImage);
     }
     
-    private Point2D getPlayerPos() {
-        Point2D playerPos = new Point2D(0,0);
-        for(Entry<Point2D, Optional<Entity>> i : this.gameWorldMap.getBoard().entrySet()) {
-            if( i.getValue().isPresent() && i.getValue().get() instanceof Player) {
-                playerPos = i.getKey();
-            }
-        }
-        return playerPos;
-    }
     
-    private List<Point2D> getEnemiesPos() {
-        List<Point2D> enemiesPos = new ArrayList<>();
-        for(Entry<Point2D, Optional<Entity>> i : this.gameWorldMap.getBoard().entrySet()) {
-            if( i.getValue().isPresent() && i.getValue().get() instanceof Enemy) {
-                enemiesPos.add(i.getKey());
-            }
-        }
-        return enemiesPos;
-    }
-    
-    private List<Point2D> getEntitiesPos(Entity entity) {
-        List<Point2D> enemiesPos = new ArrayList<>();
-        for(Entry<Point2D, Optional<Entity>> i : this.gameWorldMap.getBoard().entrySet()) {
-            if( i.getValue().isPresent() && i.getValue().get().getClass().equals(entity.getClass())) {
-                enemiesPos.add(i.getKey());
-            }
-        }
-        return enemiesPos;
-    }
     
     
 }

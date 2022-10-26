@@ -1,11 +1,14 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
+import java.util.Map.Entry;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -76,6 +79,20 @@ public class WorldMap{
     
     public Map<Point2D,Optional<Entity>> getBoard() {
         return this.board;
+    }
+    
+    public Point2D getPlayerPos() {
+        return this.playerPosition;
+    }
+    
+    public List<Point2D> getEntitiesPos(Class<Entity> class1) {
+        List<Point2D> enemiesPos = new ArrayList<>();
+        for(Entry<Point2D, Optional<Entity>> i : this.board.entrySet()) {
+            if( i.getValue().isPresent() && i.getValue().get().getClass().equals(class1)) {
+                enemiesPos.add(i.getKey());
+            }
+        }
+        return enemiesPos;
     }
     
     /*
