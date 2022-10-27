@@ -85,14 +85,31 @@ public class WorldMap{
         return this.playerPosition;
     }
     
-    public List<Point2D> getEntitiesPos(Class<Entity> class1) {
-        List<Point2D> enemiesPos = new ArrayList<>();
+    public List<Point2D> getEntitiesPos(boolean returnEnemyPos) {
+        if(returnEnemyPos) {
+            return this.getEnemiesPos();
+        }
+        return this.getCollPos();
+    }
+    
+    private List<Point2D> getCollPos() {
+        List<Point2D> entitiesPos = new ArrayList<>();
         for(Entry<Point2D, Optional<Entity>> i : this.board.entrySet()) {
-            if( i.getValue().isPresent() && i.getValue().get().getClass().equals(class1)) {
-                enemiesPos.add(i.getKey());
+            if( i.getValue().isPresent() && i.getValue().get() instanceof Collectable) {
+                entitiesPos.add(i.getKey());
             }
         }
-        return enemiesPos;
+        return entitiesPos;
+    }
+
+    private List<Point2D> getEnemiesPos() {
+        List<Point2D> entitiesPos = new ArrayList<>();
+        for(Entry<Point2D, Optional<Entity>> i : this.board.entrySet()) {
+            if( i.getValue().isPresent() && i.getValue().get() instanceof Enemy) {
+                entitiesPos.add(i.getKey());
+            }
+        }
+        return entitiesPos;
     }
     
     /*

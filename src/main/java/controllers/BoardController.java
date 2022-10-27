@@ -1,5 +1,7 @@
 package controllers;
 
+import models.Collectable;
+import models.CollectableImpl;
 import models.Enemy;
 import models.Entity;
 import models.MOVEMENT;
@@ -48,6 +50,7 @@ public final class BoardController {
     @FXML
     private Pane mainPane;
     private Canvas playerCanvas;
+    private List<Canvas> collCanvas = new ArrayList<>();
     
     public BoardController() {
         this.spawnStrat  = new RandomSpawnStrategy();
@@ -66,7 +69,6 @@ public final class BoardController {
     
     @FXML
     private void onDirectionalKeyPress(final KeyEvent keyEvent) {
-        System.out.println("ciao");
         KeyCode key = keyEvent.getCode();
         switch(key) {
             case W: 
@@ -105,7 +107,7 @@ public final class BoardController {
         Point2D playerPos = this.gameWorldMap.getPlayerPos();
         System.out.println(playerPos); 
         //this.mainPane.getChildren().add(selectedImage);
-        this.playerCanvas = new Canvas(30, 25);
+        this.playerCanvas = new Canvas(30, 30);
         this.playerCanvas.setLayoutX(playerPos.getX()*9);
         this.playerCanvas.setLayoutY(playerPos.getY()*9);
         //Image playerSprite = new Image("src/main/resources/sprites/playerStandard.png",WIDTH,HEIGHT,true,true);
@@ -114,8 +116,21 @@ public final class BoardController {
         //gc.drawImage(playerSprite, 0, 0, WIDTH, HEIGHT);
         gc.setFill(Paint.valueOf("#009630"));
         gc.fillRect(0, 0, WIDTH, HEIGHT);
+        List<Point2D> allColl = this.gameWorldMap.getEntitiesPos(false);
+        System.out.println(allColl);
+        for(Point2D i : allColl) {
+            Canvas coll = new Canvas(30,30);
+            coll.setLayoutX(i.getX());
+            coll.setLayoutY(i.getY());
+            GraphicsContext gccol = coll.getGraphicsContext2D();
+            gccol.setFill(Paint.valueOf("#555555"));
+            gc.fillRect(0, 0, WIDTH, HEIGHT);
+            this.collCanvas.add(coll);
+            
+        }
         //this.mainPane.getChildren().add(selectedImage);
         this.mainPane.getChildren().add(this.playerCanvas);
+        this.mainPane.getChildren().addAll(this.collCanvas);
         
         /*
          * cercare un modo per fare sì che il canvas si sposti di uno scacco (di una dimensione
@@ -140,8 +155,8 @@ public final class BoardController {
         gc.clearRect(0, 0, WIDTH, HEIGHT);
         this.gameWorldMap.movePlayer(movement);
         Point2D playerPos = this.gameWorldMap.getPlayerPos();
-        this.playerCanvas.setLayoutX(playerPos.getX()*5);
-        this.playerCanvas.setLayoutY(playerPos.getY()*5);
+        this.playerCanvas.setLayoutX(playerPos.getX()* 9);
+        this.playerCanvas.setLayoutY(playerPos.getY()* 9);
         gc.fillRect(0, 0, WIDTH, HEIGHT);
         //this.mainPane.getChildren().add(selectedImage);
     }
