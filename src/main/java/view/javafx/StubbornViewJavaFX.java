@@ -13,7 +13,7 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import models.MOVEMENT;
-import models.WorldMap;
+import models.WorldMapImpl;
 import view.StubbornView;
 
 public class StubbornViewJavaFX implements StubbornView {
@@ -43,7 +43,7 @@ public class StubbornViewJavaFX implements StubbornView {
     }
     
     @Override
-    public void updateWorldMap(WorldMap board) {
+    public void updateWorldMap(WorldMapImpl board) {
         
 
     }

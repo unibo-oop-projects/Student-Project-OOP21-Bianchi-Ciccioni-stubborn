@@ -10,6 +10,7 @@ import models.Point2D;
 import models.RandomSpawnStrategy;
 import models.SpawnStrategy;
 import models.WorldMap;
+import models.WorldMapImpl;
 import view.StubbornView;
 import view.javafx.StubbornViewJavaFX;
 import javafx.application.Platform;
@@ -54,13 +55,13 @@ public final class BoardController {
     
     public BoardController() {
         this.spawnStrat  = new RandomSpawnStrategy();
-        this.gameWorldMap = new WorldMap(WIDTH, HEIGHT, ENEMIES, COLLECTABLES, spawnStrat);
+        this.gameWorldMap = new WorldMapImpl(WIDTH, HEIGHT, ENEMIES, COLLECTABLES, spawnStrat);
         this.worldMapView = new StubbornViewJavaFX();
         //this.worldMapView.addDirectionalKeyPressHandler(this::onDirectionalKeyPress);
         //così il player può fare solo una partita perchè salvo la worldMap nel controller
         //per fare + partite posso fare un metodo privato che rigenera la mappa
         //MAI METTERE UN HANDLER DENTRO UPDATEWORLDMAP (altrimenti ciclo)
-        this.worldMapView.addStartHandler(() -> this.worldMapView.updateWorldMap(this.gameWorldMap));
+        //this.worldMapView.addStartHandler(() -> this.worldMapView.updateWorldMap(this.gameWorldMap));
         /*
          * javaFX offre metodo chiamato dopo costruttore (quanto è caricato main thread di JavaFX).
          * 
@@ -119,15 +120,16 @@ public final class BoardController {
         List<Point2D> allColl = this.gameWorldMap.getEntitiesPos(false);
         System.out.println(allColl);
         for(Point2D i : allColl) {
-            Canvas coll = new Canvas(30,30);
-            coll.setLayoutX(i.getX());
-            coll.setLayoutY(i.getY());
-            GraphicsContext gccol = coll.getGraphicsContext2D();
-            gccol.setFill(Paint.valueOf("#555555"));
-            gc.fillRect(0, 0, WIDTH, HEIGHT);
-            this.collCanvas.add(coll);
-            
+            this.collCanvas.add(new Canvas(30,30));
+            this.collCanvas.forEach(coll -> {
+                coll.setLayoutX(i.getX()*3);
+                coll.setLayoutY(i.getY()*3);
+                GraphicsContext gccol = coll.getGraphicsContext2D();
+                gccol.setFill(Paint.valueOf("#555555"));
+                gc.fillRect(0, 0, WIDTH, HEIGHT);
+            });
         }
+        System.out.println(this.collCanvas);
         //this.mainPane.getChildren().add(selectedImage);
         this.mainPane.getChildren().add(this.playerCanvas);
         this.mainPane.getChildren().addAll(this.collCanvas);

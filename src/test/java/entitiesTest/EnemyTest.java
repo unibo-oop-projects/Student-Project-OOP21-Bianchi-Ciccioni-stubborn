@@ -11,7 +11,7 @@ import models.Point2D;
 import models.RandomAiEnemy;
 import models.RandomSpawnStrategy;
 import models.SpawnStrategy;
-import models.WorldMap;
+import models.WorldMapImpl;
 
 import java.util.Map;
 import java.util.Optional;
@@ -40,7 +40,7 @@ public class EnemyTest {
     static int NUM_COLLECTABLES = 15;
     
     private SpawnStrategy randomStrategy = new RandomSpawnStrategy();
-    private WorldMap worldMap = new WorldMap(WIDTH,HEIGHT,NUM_ENEMIES,NUM_COLLECTABLES, randomStrategy);
+    private WorldMapImpl worldMap = new WorldMapImpl(WIDTH,HEIGHT,NUM_ENEMIES,NUM_COLLECTABLES, randomStrategy);
     
     @Test
     public void testRandomAiEnemy() {

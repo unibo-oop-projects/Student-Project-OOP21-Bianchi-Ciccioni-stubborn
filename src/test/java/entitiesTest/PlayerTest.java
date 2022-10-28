@@ -8,7 +8,7 @@ import models.Player;
 import models.Point2D;
 import models.RandomSpawnStrategy;
 import models.SpawnStrategy;
-import models.WorldMap;
+import models.WorldMapImpl;
 
 import java.util.Map;
 import java.util.Optional;
@@ -24,7 +24,7 @@ public class PlayerTest {
     static int EXPECTED_SIZE = 5;
     
     private SpawnStrategy randomStrategy = new RandomSpawnStrategy();
-    private WorldMap worldMap = new WorldMap(WIDTH,HEIGHT,NUM_ENEMIES,NUM_COLLECTABLES, randomStrategy);
+    private WorldMapImpl worldMap = new WorldMapImpl(WIDTH,HEIGHT,NUM_ENEMIES,NUM_COLLECTABLES, randomStrategy);
     Point2D startPlayerPos = new Point2D(WIDTH/2,HEIGHT/2);
     
     @Test

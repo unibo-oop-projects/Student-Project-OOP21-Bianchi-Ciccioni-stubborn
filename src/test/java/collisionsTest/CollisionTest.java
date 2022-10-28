@@ -12,7 +12,7 @@ import models.Player;
 import models.Point2D;
 import models.RandomSpawnStrategy;
 import models.SpawnStrategy;
-import models.WorldMap;
+import models.WorldMapImpl;
 
 import java.util.Map;
 import java.util.Optional;
@@ -28,7 +28,7 @@ public class CollisionTest {
     
     CollisionStrategy collisions = new CollisionImpl();
     SpawnStrategy strategy = new RandomSpawnStrategy();
-    WorldMap worldMap = new WorldMap(WIDTH,HEIGHT,NUM_ENEMIES,NUM_COLLECTABLES, strategy);
+    WorldMapImpl worldMap = new WorldMapImpl(WIDTH,HEIGHT,NUM_ENEMIES,NUM_COLLECTABLES, strategy);
     
     @Test
     public void testCollision() {
