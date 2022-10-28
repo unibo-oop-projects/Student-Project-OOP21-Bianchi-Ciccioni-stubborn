@@ -2,12 +2,12 @@ package view;
 
 import java.util.function.Consumer;
 
-import models.WorldMapImpl;
 import models.MOVEMENT;
+import models.WorldMap;
 
 public interface StubbornView {
     
-    public void updateWorldMap(WorldMapImpl board);
+    public void updateWorldMap(WorldMap board);
     
     public void addDirectionalKeyPressHandler(Consumer<MOVEMENT> handler);
     

@@ -8,6 +8,7 @@ import models.Player;
 import models.Point2D;
 import models.RandomSpawnStrategy;
 import models.SpawnStrategy;
+import models.WorldMap;
 import models.WorldMapImpl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -26,7 +27,7 @@ public class WorldMapTest {
     static int EXPECTED_SIZE = 5;
     
     private SpawnStrategy randomStrategy = new RandomSpawnStrategy();
-    private WorldMapImpl worldMap = new WorldMapImpl(WIDTH,HEIGHT,NUM_ENEMIES,NUM_COLLECTABLES, randomStrategy);
+    private WorldMap worldMap = new WorldMapImpl(WIDTH,HEIGHT,NUM_ENEMIES,NUM_COLLECTABLES, randomStrategy);
     Point2D startPlayerPos = new Point2D(WIDTH/2,HEIGHT/2);
     Point2D randomPos = new Point2D(3,5);
     
