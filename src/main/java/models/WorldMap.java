@@ -11,5 +11,5 @@ public interface WorldMap {
     
     public Point2D getPlayerPos();
     
-    public List<Point2D> getEntitiesPos(boolean returnEnemyPos);
+    public List<Pair<Point2D,Class<? extends Entity>>> getEntitiesPos();
 }

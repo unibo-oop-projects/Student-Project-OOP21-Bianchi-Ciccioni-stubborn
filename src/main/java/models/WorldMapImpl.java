@@ -88,28 +88,11 @@ public class WorldMapImpl implements WorldMap{
     }
     
     @Override
-    public List<Point2D> getEntitiesPos(boolean returnEnemyPos) {
-        if(returnEnemyPos) {
-            return this.getEnemiesPos();
-        }
-        return this.getCollPos();
-    }
-    
-    private List<Point2D> getCollPos() {
-        List<Point2D> entitiesPos = new ArrayList<>();
+    public List<Pair<Point2D,Class<? extends Entity>>> getEntitiesPos() {
+        List<Pair<Point2D,Class<? extends Entity>>> entitiesPos = new ArrayList<>();
         for(Entry<Point2D, Optional<Entity>> i : this.board.entrySet()) {
-            if( i.getValue().isPresent() && i.getValue().get() instanceof Collectable) {
-                entitiesPos.add(i.getKey());
-            }
-        }
-        return entitiesPos;
-    }
-
-    private List<Point2D> getEnemiesPos() {
-        List<Point2D> entitiesPos = new ArrayList<>();
-        for(Entry<Point2D, Optional<Entity>> i : this.board.entrySet()) {
-            if( i.getValue().isPresent() && i.getValue().get() instanceof Enemy) {
-                entitiesPos.add(i.getKey());
+            if(i.getValue().isPresent() && !i.getKey().equals(this.getPlayerPos())) {
+                entitiesPos.add(new Pair<>(i.getKey(), i.getValue().get().getClass()));
             }
         }
         return entitiesPos;
