@@ -17,7 +17,6 @@ public class RandomSpawnStrategy implements SpawnStrategy{
                 spawnPoints.add(newPos);
             }
         }
-        System.out.println(spawnPoints.size());
         return spawnPoints;
     }
     

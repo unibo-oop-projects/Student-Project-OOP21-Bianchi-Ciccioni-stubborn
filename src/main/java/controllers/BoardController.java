@@ -143,24 +143,17 @@ public final class BoardController {
                 this.collCanvas.put(i.getX(),new Canvas(30,30));
             }
         }
-        /*
-        for(Entry<Point2D, Canvas> i : this.enCnavas.entrySet()) {
-            i.getValue().setLayoutX(i.getKey().getX()*5);
-            i.getValue().setLayoutY(i.getKey().getY()*5);
-            GraphicsContext gEnemy = i.getValue().getGraphicsContext2D();
-            gEnemy.setFill(Paint.valueOf("#555555"));
-            gEnemy.fillRect(0, 0, WIDTH, HEIGHT);
-        }*/
+        
         this.enCnavas.forEach((pos, en) -> {
             en.setLayoutX(pos.getX()*5);
             en.setLayoutY(pos.getY()*5);
             en.getGraphicsContext2D().setFill(Paint.valueOf("#555555"));
             en.getGraphicsContext2D().fillRect(0, 0, WIDTH, HEIGHT);
         });
-        this.enCnavas.put(allEntities.get(0).getX(),new Canvas(30,30));
-        GraphicsContext gEnemy = this.enCnavas.get(allEntities.get(0).getX()).getGraphicsContext2D();
-        gEnemy.setFill(Paint.valueOf("#555555"));
-        gEnemy.fillRect(0, 0, WIDTH, HEIGHT);
+        //this.enCnavas.put(allEntities.get(0).getX(),new Canvas(30,30));
+        //GraphicsContext gEnemy = this.enCnavas.get(allEntities.get(0).getX()).getGraphicsContext2D();
+        //gEnemy.setFill(Paint.valueOf("#555555"));
+        //gEnemy.fillRect(0, 0, WIDTH, HEIGHT);
         System.out.println(this.collCanvas);
         //this.mainPane.getChildren().add(selectedImage);
         this.mainPane.getChildren().add(this.playerCanvas);
