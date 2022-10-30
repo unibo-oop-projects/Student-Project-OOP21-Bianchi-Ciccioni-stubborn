@@ -2,8 +2,6 @@ package collisionsTest;
 
 import org.junit.jupiter.api.Test;
 
-import models.Collectable;
-import models.CollectableImpl;
 import models.CollisionImpl;
 import models.CollisionStrategy;
 import models.Entity;

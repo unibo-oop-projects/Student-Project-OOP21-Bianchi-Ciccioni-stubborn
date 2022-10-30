@@ -3,6 +3,7 @@ package controllers;
 import models.Collectable;
 import models.CollectableImpl;
 import models.Enemy;
+import models.EnemyImpl;
 import models.Entity;
 import models.MOVEMENT;
 import models.Pair;
@@ -136,7 +137,7 @@ public final class BoardController {
         List<Pair<Point2D,Class<? extends Entity>>> allEntities = this.gameWorldMap.getEntitiesPos();
         System.out.println(allEntities);
         for(Pair<Point2D,Class<? extends Entity>> i : allEntities) {
-            if(i.getY().equals(Enemy.class)) {
+            if(i.getY().equals(EnemyImpl.class)) {
                 this.enCnavas.put(i.getX(),new Canvas(30,30));
             }
             else {
@@ -150,14 +151,25 @@ public final class BoardController {
             en.getGraphicsContext2D().setFill(Paint.valueOf("#555555"));
             en.getGraphicsContext2D().fillRect(0, 0, WIDTH, HEIGHT);
         });
-        //this.enCnavas.put(allEntities.get(0).getX(),new Canvas(30,30));
-        //GraphicsContext gEnemy = this.enCnavas.get(allEntities.get(0).getX()).getGraphicsContext2D();
-        //gEnemy.setFill(Paint.valueOf("#555555"));
-        //gEnemy.fillRect(0, 0, WIDTH, HEIGHT);
+        this.collCanvas.forEach((pos, coll) -> {
+            coll.setLayoutX(pos.getX()*5);
+            coll.setLayoutY(pos.getY()*5);
+            coll.getGraphicsContext2D().setFill(Paint.valueOf("#FFFF00"));
+            coll.getGraphicsContext2D().fillRect(0, 0, WIDTH, HEIGHT);
+        });
+        System.out.println(this.enCnavas);
+        /*
+        Canvas enCanvas = this.enCnavas.get(enPos);
+        enCanvas.setLayoutX(enPos.getX()*3);
+        enCanvas.setLayoutY(enPos.getY()*3);
+        GraphicsContext gEnemy = enCanvas.getGraphicsContext2D();
+        gEnemy.setFill(Paint.valueOf("#555555"));
+        gEnemy.fillRect(0, 0, WIDTH, HEIGHT);*/
         System.out.println(this.collCanvas);
         //this.mainPane.getChildren().add(selectedImage);
         this.mainPane.getChildren().add(this.playerCanvas);
         this.mainPane.getChildren().addAll(this.enCnavas.values());
+        this.mainPane.getChildren().addAll(this.collCanvas.values());
         
         /*
          * cercare un modo per fare sì che il canvas si sposti di uno scacco (di una dimensione
