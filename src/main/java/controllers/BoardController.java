@@ -64,7 +64,7 @@ public final class BoardController {
     public BoardController() {
         this.spawnStrat  = new RandomSpawnStrategy();
         this.gameWorldMap = new WorldMapImpl(WIDTH, HEIGHT, ENEMIES, COLLECTABLES, spawnStrat);
-        this.worldMapView = new StubbornViewJavaFX();
+        //this.worldMapView = new StubbornViewJavaFX(this.mainPane, HEIGHT, WIDTH);
         //this.worldMapView.addDirectionalKeyPressHandler(this::onDirectionalKeyPress);
         //così il player può fare solo una partita perchè salvo la worldMap nel controller
         //per fare + partite posso fare un metodo privato che rigenera la mappa
@@ -104,6 +104,11 @@ public final class BoardController {
 
     
     private void initalizeView() {
+        this.worldMapView = new StubbornViewJavaFX(this.mainPane, HEIGHT, WIDTH);
+        Point2D playerPos = this.gameWorldMap.getPlayerPos();
+        List<Pair<Point2D,Class<? extends Entity>>> allEntities = this.gameWorldMap.getEntitiesPos();
+        this.worldMapView.initializeView(playerPos, allEntities);
+        /*
         Stage boardStage = (Stage)this.mainPane.getScene().getWindow();
         boardStage.setWidth(WIDTH * 10);
         boardStage.setHeight(HEIGHT * 10);
@@ -129,11 +134,11 @@ public final class BoardController {
         gc.setFill(Paint.valueOf("#009630"));
         gc.fillRect(0, 0, WIDTH, HEIGHT);
         /*
-         * PUNTO 1: distinguere Collectable da Enemy
-         * PUNTO 2: farli apparire sulla mappa
          * PUNTO 3: evitare che il Player esca dalla mappa
-         * PUNTo 4: sostituire colore con Sprite
+         * PUNTO 4: sostituire colore con Sprite
+         * PUNTO 5: Incapsulare in View
          */
+        /*
         List<Pair<Point2D,Class<? extends Entity>>> allEntities = this.gameWorldMap.getEntitiesPos();
         System.out.println(allEntities);
         for(Pair<Point2D,Class<? extends Entity>> i : allEntities) {
@@ -165,6 +170,7 @@ public final class BoardController {
         GraphicsContext gEnemy = enCanvas.getGraphicsContext2D();
         gEnemy.setFill(Paint.valueOf("#555555"));
         gEnemy.fillRect(0, 0, WIDTH, HEIGHT);*/
+        /*
         System.out.println(this.collCanvas);
         //this.mainPane.getChildren().add(selectedImage);
         this.mainPane.getChildren().add(this.playerCanvas);
@@ -189,6 +195,10 @@ public final class BoardController {
     }
     
     private void updateMap(MOVEMENT movement) {
+        this.gameWorldMap.movePlayer(movement);
+        Point2D playerPos = this.gameWorldMap.getPlayerPos();
+        this.worldMapView.updateWorldMap(playerPos);
+        /*
         GraphicsContext gc = this.playerCanvas.getGraphicsContext2D();
         gc.setFill(Paint.valueOf("#009630"));
         gc.clearRect(0, 0, WIDTH, HEIGHT);
@@ -197,7 +207,7 @@ public final class BoardController {
         this.playerCanvas.setLayoutX(playerPos.getX()* 9);
         this.playerCanvas.setLayoutY(playerPos.getY()* 9);
         gc.fillRect(0, 0, WIDTH, HEIGHT);
-        //this.mainPane.getChildren().add(selectedImage);
+        //this.mainPane.getChildren().add(selectedImage);*/
     }
     
     
