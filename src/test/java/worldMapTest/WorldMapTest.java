@@ -41,7 +41,6 @@ public class WorldMapTest {
         set1.add(randomPos);
         Set<Point2D> set2 = this.randomStrategy.getSpawnPoints(width, height, num_entities);
         set2.add(randomPos);
-        System.out.println(set2.size());
         Set<Point2D> allSet = this.randomStrategy.getDoubleSpawnPoints(width, height, set1, set2);
         assertEquals(EXPECTED_SIZE,set1.size());
         assertEquals(EXPECTED_SIZE * 2,allSet.size());

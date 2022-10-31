@@ -57,9 +57,6 @@ public final class BoardController {
     private StubbornView worldMapView;
     @FXML
     private Pane mainPane;
-    private Canvas playerCanvas;
-    private Map<Point2D,Canvas> collCanvas = new HashMap<>();
-    private Map<Point2D,Canvas> enCnavas = new HashMap<>();
     
     public BoardController() {
         this.spawnStrat  = new RandomSpawnStrategy();
@@ -109,75 +106,6 @@ public final class BoardController {
         List<Pair<Point2D,Class<? extends Entity>>> allEntities = this.gameWorldMap.getEntitiesPos();
         this.worldMapView.initializeView(playerPos, allEntities);
         /*
-        Stage boardStage = (Stage)this.mainPane.getScene().getWindow();
-        boardStage.setWidth(WIDTH * 10);
-        boardStage.setHeight(HEIGHT * 10);
-        Scene boardScene = this.mainPane.getScene();
-        boardScene.getRoot().requestFocus();
-        BackgroundFill bf = new BackgroundFill(Paint.valueOf("#000000"),
-                CornerRadii.EMPTY , Insets.EMPTY);
-        this.mainPane.setBackground(new Background(bf));
-        //Rectangle2D screenBounds = Screen.getPrimary().getBounds();
-        Point2D playerPos = this.gameWorldMap.getPlayerPos();
-        System.out.println(playerPos); 
-        //this.mainPane.getChildren().add(selectedImage);
-        this.playerCanvas = new Canvas(30, 30);
-        this.playerCanvas.setLayoutX(playerPos.getX()*9);
-        this.playerCanvas.setLayoutY(playerPos.getY()*9);
-        System.out.println(this.playerCanvas.getLayoutBounds());
-        //File spriteStandard = new File("src/main/resources/sprites/playerStandard.png");
-        //InputStream targetStream = new FileInputStream(spriteStandard);
-        //Image playerSprite = new Image(targetStream,WIDTH,HEIGHT,true,true);
-        //ImageView selectedImage = new ImageView(playerSprite); 
-        GraphicsContext gc = this.playerCanvas.getGraphicsContext2D();
-        //gc.drawImage(playerSprite, 0, 0, WIDTH, HEIGHT);
-        gc.setFill(Paint.valueOf("#009630"));
-        gc.fillRect(0, 0, WIDTH, HEIGHT);
-        /*
-         * PUNTO 3: evitare che il Player esca dalla mappa
-         * PUNTO 4: sostituire colore con Sprite
-         * PUNTO 5: Incapsulare in View
-         */
-        /*
-        List<Pair<Point2D,Class<? extends Entity>>> allEntities = this.gameWorldMap.getEntitiesPos();
-        System.out.println(allEntities);
-        for(Pair<Point2D,Class<? extends Entity>> i : allEntities) {
-            if(i.getY().equals(EnemyImpl.class)) {
-                this.enCnavas.put(i.getX(),new Canvas(30,30));
-            }
-            else {
-                this.collCanvas.put(i.getX(),new Canvas(30,30));
-            }
-        }
-        
-        this.enCnavas.forEach((pos, en) -> {
-            en.setLayoutX(pos.getX()*5);
-            en.setLayoutY(pos.getY()*5);
-            en.getGraphicsContext2D().setFill(Paint.valueOf("#555555"));
-            en.getGraphicsContext2D().fillRect(0, 0, WIDTH, HEIGHT);
-        });
-        this.collCanvas.forEach((pos, coll) -> {
-            coll.setLayoutX(pos.getX()*5);
-            coll.setLayoutY(pos.getY()*5);
-            coll.getGraphicsContext2D().setFill(Paint.valueOf("#FFFF00"));
-            coll.getGraphicsContext2D().fillRect(0, 0, WIDTH, HEIGHT);
-        });
-        System.out.println(this.enCnavas);
-        /*
-        Canvas enCanvas = this.enCnavas.get(enPos);
-        enCanvas.setLayoutX(enPos.getX()*3);
-        enCanvas.setLayoutY(enPos.getY()*3);
-        GraphicsContext gEnemy = enCanvas.getGraphicsContext2D();
-        gEnemy.setFill(Paint.valueOf("#555555"));
-        gEnemy.fillRect(0, 0, WIDTH, HEIGHT);*/
-        /*
-        System.out.println(this.collCanvas);
-        //this.mainPane.getChildren().add(selectedImage);
-        this.mainPane.getChildren().add(this.playerCanvas);
-        this.mainPane.getChildren().addAll(this.enCnavas.values());
-        this.mainPane.getChildren().addAll(this.collCanvas.values());
-        
-        /*
          * cercare un modo per fare sì che il canvas si sposti di uno scacco (di una dimensione
          * specifica). Mappare spostamento logico in uno grafico.
          * Passo a controller il point2D del player che poi sarà mappato in spostamento individuale
@@ -187,30 +115,11 @@ public final class BoardController {
          * l'obiettivo è fare sì che quando chiamo il movement, allora si sposta anche il player
          * (devo recuperare la posizione del player e spostarla a livello grafico)
          */
-        /*
-        gc.clearRect(0, 0, WIDTH, HEIGHT);
-        this.playerCanvas.setLayoutX(playerPos.getX()*5);
-        this.playerCanvas.setLayoutY(playerPos.getY()*5);
-        gc.fillRect(0, 0, WIDTH, HEIGHT);*/
     }
     
     private void updateMap(MOVEMENT movement) {
         this.gameWorldMap.movePlayer(movement);
         Point2D playerPos = this.gameWorldMap.getPlayerPos();
         this.worldMapView.updateWorldMap(playerPos);
-        /*
-        GraphicsContext gc = this.playerCanvas.getGraphicsContext2D();
-        gc.setFill(Paint.valueOf("#009630"));
-        gc.clearRect(0, 0, WIDTH, HEIGHT);
-        this.gameWorldMap.movePlayer(movement);
-        Point2D playerPos = this.gameWorldMap.getPlayerPos();
-        this.playerCanvas.setLayoutX(playerPos.getX()* 9);
-        this.playerCanvas.setLayoutY(playerPos.getY()* 9);
-        gc.fillRect(0, 0, WIDTH, HEIGHT);
-        //this.mainPane.getChildren().add(selectedImage);*/
-    }
-    
-    
-    
-    
+    } 
 }
