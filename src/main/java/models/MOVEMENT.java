@@ -1,7 +1,4 @@
 package models;
-/*
- * robe fighissime
- */
 
 public enum MOVEMENT {
     LEFT(-1,0),

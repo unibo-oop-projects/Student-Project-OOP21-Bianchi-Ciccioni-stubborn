@@ -2,16 +2,14 @@ package worldMapTest;
 
 import org.junit.jupiter.api.Test;
 
-import models.Enemy;
 import models.Entity;
 import models.MOVEMENT;
-import models.Pair;
 import models.Player;
-import models.PlayerImpl;
 import models.Point2D;
 import models.RandomSpawnStrategy;
 import models.SpawnStrategy;
 import models.WorldMap;
+import models.WorldMapImpl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
@@ -29,7 +27,7 @@ public class WorldMapTest {
     static int EXPECTED_SIZE = 5;
     
     private SpawnStrategy randomStrategy = new RandomSpawnStrategy();
-    private WorldMap worldMap = new WorldMap(WIDTH,HEIGHT,NUM_ENEMIES,NUM_COLLECTABLES, randomStrategy);
+    private WorldMap worldMap = new WorldMapImpl(WIDTH,HEIGHT,NUM_ENEMIES,NUM_COLLECTABLES, randomStrategy);
     Point2D startPlayerPos = new Point2D(WIDTH/2,HEIGHT/2);
     Point2D randomPos = new Point2D(3,5);
     
@@ -43,7 +41,6 @@ public class WorldMapTest {
         set1.add(randomPos);
         Set<Point2D> set2 = this.randomStrategy.getSpawnPoints(width, height, num_entities);
         set2.add(randomPos);
-        System.out.println(set2.size());
         Set<Point2D> allSet = this.randomStrategy.getDoubleSpawnPoints(width, height, set1, set2);
         assertEquals(EXPECTED_SIZE,set1.size());
         assertEquals(EXPECTED_SIZE * 2,allSet.size());

@@ -1,20 +1,20 @@
 package view;
 
+import java.util.List;
 import java.util.function.Consumer;
 
-import models.WorldMap;
+import models.Entity;
 import models.MOVEMENT;
+import models.Pair;
+import models.Point2D;
+import models.WorldMap;
 
 public interface StubbornView {
     
-    public void updateWorldMap(WorldMap board);
+    public void initializeView(Point2D playerPos, List<Pair<Point2D,Class<? extends Entity>>> allEntities);
+    
+    public void updateWorldMap(Point2D playerPos);
     
     public void addDirectionalKeyPressHandler(Consumer<MOVEMENT> handler);
-    
-    //per completismo (probabilmente inutile per questo programma
-    public void removeDirectionalKeyPressHandler(Consumer<MOVEMENT> handler);
-    
-    //questo è per far partire il menù
-    public void addStartHandler(Runnable startHandler);
     
 }
