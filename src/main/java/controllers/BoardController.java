@@ -55,6 +55,7 @@ public final class BoardController {
     private final SpawnStrategy spawnStrat;
     private final WorldMap gameWorldMap;
     private StubbornView worldMapView;
+    private Point2D previousPlayerPos;
     @FXML
     private Pane mainPane;
     
@@ -102,9 +103,9 @@ public final class BoardController {
     
     private void initalizeView() {
         this.worldMapView = new StubbornViewJavaFX(this.mainPane, HEIGHT, WIDTH);
-        Point2D playerPos = this.gameWorldMap.getPlayerPos();
+        this.previousPlayerPos = this.gameWorldMap.getPlayerPos();
         List<Pair<Point2D,Class<? extends Entity>>> allEntities = this.gameWorldMap.getEntitiesPos();
-        this.worldMapView.initializeView(playerPos, allEntities);
+        this.worldMapView.initializeView(this.previousPlayerPos, allEntities);
         /*
          * cercare un modo per fare sì che il canvas si sposti di uno scacco (di una dimensione
          * specifica). Mappare spostamento logico in uno grafico.
@@ -120,6 +121,9 @@ public final class BoardController {
     private void updateMap(MOVEMENT movement) {
         this.gameWorldMap.movePlayer(movement);
         Point2D playerPos = this.gameWorldMap.getPlayerPos();
+        if(playerPos.equals(this.previousPlayerPos)) {
+            this.worldMapView.takeDamage((Player)this.gameWorldMap.getBoard().get(this.previousPlayerPos).get());
+        }
         this.worldMapView.updateWorldMap(playerPos);
     } 
 }

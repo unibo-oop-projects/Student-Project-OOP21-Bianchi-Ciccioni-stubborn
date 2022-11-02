@@ -1,18 +1,26 @@
 package view.javafx;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
+
 import com.sun.prism.paint.Color;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -23,6 +31,7 @@ import models.EnemyImpl;
 import models.Entity;
 import models.MOVEMENT;
 import models.Pair;
+import models.Player;
 import models.Point2D;
 import models.WorldMap;
 import view.StubbornView;
@@ -59,12 +68,14 @@ public class StubbornViewJavaFX implements StubbornView {
         this.playerCanvas = new Canvas(30, 30);
         this.playerCanvas.setLayoutX(playerPos.getX()*9);
         this.playerCanvas.setLayoutY(playerPos.getY()*9);
-        //File spriteStandard = new File("src/main/resources/sprites/playerStandard.png");
+        //String playerStandard = "./src/main/resources/sprites/playerStandard.png";
+        //File spriteStandard = new File("./src/main/resources/sprites/playerStandard.png");
         //InputStream targetStream = new FileInputStream(spriteStandard);
-        //Image playerSprite = new Image(targetStream,WIDTH,HEIGHT,true,true);
+        //Image playerSprite = new Image(playerStandard,this.width,this.height,true, true);
+        //Image playerSprite = new Image(targetStream,this.width,this.height,true,true);
         //ImageView selectedImage = new ImageView(playerSprite); 
         GraphicsContext gc = this.playerCanvas.getGraphicsContext2D();
-        //gc.drawImage(playerSprite, 0, 0, WIDTH, HEIGHT);
+        //gc.drawImage(playerSprite, 0, 0, this.width,this.height);
         gc.setFill(Paint.valueOf("#009630"));
         gc.fillRect(0, 0, this.width, this.height);
         /*
@@ -121,7 +132,36 @@ public class StubbornViewJavaFX implements StubbornView {
     @Override
     public void addDirectionalKeyPressHandler(Consumer<MOVEMENT> handler) {
         // TODO Auto-generated method stub
-        
+        /*
+         * else {
+            Player player = (Player) this.board.get(this.playerPosition).get();
+            player.setHealth(player.getHealth() - 1);
+            }
+         */
+    }
+
+    @Override
+    public void takeDamage(Player player) {
+        /*
+        String musicFile = "Hit_sound.mp3";
+        AudioClip sound = new AudioClip(new File(musicFile).toURI().toString());
+        mediaPlayer.play();*/
+        player.setHealth(player.getHealth() - 1);
+        if(player.getHealth() <= 0) {
+            this.gameOver();
+        }
+    }
+
+    private void gameOver() {
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(ClassLoader.getSystemResource("layouts/menu.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        final Scene scene = new Scene(root, this.width, this.height);
+        boardStage.setScene(scene);
+        boardStage.show();
     }
 
 }
