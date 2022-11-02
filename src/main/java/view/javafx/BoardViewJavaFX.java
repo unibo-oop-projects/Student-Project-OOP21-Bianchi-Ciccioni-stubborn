@@ -36,7 +36,7 @@ import models.Point2D;
 import models.WorldMap;
 import view.BoardView;
 
-public class StubbornViewJavaFX implements BoardView {
+public class BoardViewJavaFX implements BoardView {
     
     private static final int SCREEN_SIZE_MATCH = 10;
     
@@ -50,7 +50,7 @@ public class StubbornViewJavaFX implements BoardView {
     private Map<Point2D,Canvas> collCanvas = new HashMap<>();
     private Map<Point2D,Canvas> enCnavas = new HashMap<>();
 
-    public StubbornViewJavaFX(final Pane mainPane, final int height, final int width) {
+    public BoardViewJavaFX(final Pane mainPane, final int height, final int width) {
         this.mainPane = mainPane;
         this.width = width;
         this.height = height;
@@ -121,7 +121,6 @@ public class StubbornViewJavaFX implements BoardView {
         gEnemy.setFill(Paint.valueOf("#555555"));
         gEnemy.fillRect(0, 0, WIDTH, HEIGHT);*/
         System.out.println(this.collCanvas);
-        //this.mainPane.getChildren().add(selectedImage);
         this.mainPane.getChildren().add(this.playerCanvas);
         this.mainPane.getChildren().addAll(this.enCnavas.values());
         this.mainPane.getChildren().addAll(this.collCanvas.values());

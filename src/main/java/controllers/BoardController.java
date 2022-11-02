@@ -14,7 +14,7 @@ import models.SpawnStrategy;
 import models.WorldMap;
 import models.WorldMapImpl;
 import view.BoardView;
-import view.javafx.StubbornViewJavaFX;
+import view.javafx.BoardViewJavaFX;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -102,7 +102,7 @@ public final class BoardController {
 
     
     private void initalizeView() {
-        this.worldMapView = new StubbornViewJavaFX(this.mainPane, HEIGHT, WIDTH);
+        this.worldMapView = new BoardViewJavaFX(this.mainPane, HEIGHT, WIDTH);
         this.previousPlayerPos = this.gameWorldMap.getPlayerPos();
         List<Pair<Point2D,Class<? extends Entity>>> allEntities = this.gameWorldMap.getEntitiesPos();
         this.worldMapView.initializeView(this.previousPlayerPos, allEntities);
