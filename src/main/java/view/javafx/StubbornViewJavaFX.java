@@ -34,9 +34,11 @@ import models.Pair;
 import models.Player;
 import models.Point2D;
 import models.WorldMap;
-import view.StubbornView;
+import view.BoardView;
 
-public class StubbornViewJavaFX implements StubbornView {
+public class StubbornViewJavaFX implements BoardView {
+    
+    private static final int SCREEN_SIZE_MATCH = 10;
     
     private final int width;
     private final int height;
@@ -53,9 +55,16 @@ public class StubbornViewJavaFX implements StubbornView {
         this.width = width;
         this.height = height;
         this.boardStage = (Stage)this.mainPane.getScene().getWindow();
-        this.boardStage.setWidth(this.width * 10);
-        this.boardStage.setHeight(this.height * 10);
+        //also get
+        //this.boardStage.setWidth(this.width * 10);
+        //this.boardStage.setHeight(this.height * 10);
+        //set dimension of scene correctly (there is a constructor for this
         Scene boardScene = this.mainPane.getScene();
+        this.boardStage.setScene(boardScene);
+        System.out.println(boardScene.getHeight());
+        System.out.println(boardScene.getWidth());
+        System.out.println(this.boardStage.getHeight());
+        System.out.println(this.boardStage.getWidth());
         boardScene.getRoot().requestFocus();
         BackgroundFill bf = new BackgroundFill(Paint.valueOf("#000000"),
                 CornerRadii.EMPTY , Insets.EMPTY);
@@ -65,9 +74,9 @@ public class StubbornViewJavaFX implements StubbornView {
     @Override
     public void initializeView(Point2D playerPos, List<Pair<Point2D,Class<? extends Entity>>> allEntities) {
         //this.mainPane.getChildren().add(selectedImage);
-        this.playerCanvas = new Canvas(30, 30);
-        this.playerCanvas.setLayoutX(playerPos.getX()*9);
-        this.playerCanvas.setLayoutY(playerPos.getY()*9);
+        this.playerCanvas = new Canvas(this.width, this.height);
+        this.playerCanvas.setLayoutX(playerPos.getX() * SCREEN_SIZE_MATCH);
+        this.playerCanvas.setLayoutY(playerPos.getY() * SCREEN_SIZE_MATCH);
         //String playerStandard = "./src/main/resources/sprites/playerStandard.png";
         //File spriteStandard = new File("./src/main/resources/sprites/playerStandard.png");
         //InputStream targetStream = new FileInputStream(spriteStandard);
@@ -81,26 +90,25 @@ public class StubbornViewJavaFX implements StubbornView {
         /*
          * PUNTO 3: evitare che il Player esca dalla mappa
          * PUNTO 4: sostituire colore con Sprite
-         * PUNTO 5: Incapsulare in View
          */
         for(Pair<Point2D,Class<? extends Entity>> i : allEntities) {
             if(i.getY().equals(EnemyImpl.class)) {
-                this.enCnavas.put(i.getX(),new Canvas(30,30));
+                this.enCnavas.put(i.getX(),new Canvas(this.width, this.height));
             }
             else {
-                this.collCanvas.put(i.getX(),new Canvas(30,30));
+                this.collCanvas.put(i.getX(),new Canvas(this.width, this.height));
             }
         }
         
         this.enCnavas.forEach((pos, en) -> {
-            en.setLayoutX(pos.getX()*5);
-            en.setLayoutY(pos.getY()*5);
+            en.setLayoutX(pos.getX() * SCREEN_SIZE_MATCH);
+            en.setLayoutY(pos.getY() * SCREEN_SIZE_MATCH);
             en.getGraphicsContext2D().setFill(Paint.valueOf("#555555"));
             en.getGraphicsContext2D().fillRect(0, 0, this.width, this.height);
         });
         this.collCanvas.forEach((pos, coll) -> {
-            coll.setLayoutX(pos.getX()*5);
-            coll.setLayoutY(pos.getY()*5);
+            coll.setLayoutX(pos.getX() * SCREEN_SIZE_MATCH);
+            coll.setLayoutY(pos.getX() * SCREEN_SIZE_MATCH);
             coll.getGraphicsContext2D().setFill(Paint.valueOf("#FFFF00"));
             coll.getGraphicsContext2D().fillRect(0, 0, this.width, this.height);
         });
@@ -120,13 +128,19 @@ public class StubbornViewJavaFX implements StubbornView {
     }
     
     @Override
-    public void updateWorldMap(Point2D playerPos) {
+    public void updateWorldMap(Point2D playerPos, int numEntitiesRemaining) {
         GraphicsContext gc = this.playerCanvas.getGraphicsContext2D();
         gc.setFill(Paint.valueOf("#009630"));
         gc.clearRect(0, 0, this.width, this.height);
-        this.playerCanvas.setLayoutX(playerPos.getX()* 9);
-        this.playerCanvas.setLayoutY(playerPos.getY()* 9);
+        this.playerCanvas.setLayoutX(playerPos.getX() * SCREEN_SIZE_MATCH);
+        this.playerCanvas.setLayoutY(playerPos.getY() * SCREEN_SIZE_MATCH);
         gc.fillRect(0, 0, this.width, this.height);
+        System.out.println(this.playerCanvas.getLayoutX());
+        System.out.println(this.playerCanvas.getLayoutY());
+        if(this.enCnavas.size() + this.collCanvas.size() < numEntitiesRemaining) {
+            GraphicsContext gColl = this.collCanvas.get(playerPos).getGraphicsContext2D();
+            gColl.clearRect(0, 0, this.width, this.height);
+        }
     }
 
     @Override
@@ -141,12 +155,14 @@ public class StubbornViewJavaFX implements StubbornView {
     }
 
     @Override
-    public void takeDamage(Player player) {
+    public void takeDamage(Player player) { 
         /*
         String musicFile = "Hit_sound.mp3";
         AudioClip sound = new AudioClip(new File(musicFile).toURI().toString());
         mediaPlayer.play();*/
-        player.setHealth(player.getHealth() - 1);
+        player.setHealth(-1);
+        System.out.println("Damage Taken");
+        System.out.println(player.getHealth());
         if(player.getHealth() <= 0) {
             this.gameOver();
         }
@@ -159,7 +175,7 @@ public class StubbornViewJavaFX implements StubbornView {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        final Scene scene = new Scene(root, this.width, this.height);
+        final Scene scene = new Scene(root, this.boardStage.getHeight(), this.boardStage.getWidth());
         boardStage.setScene(scene);
         boardStage.show();
     }

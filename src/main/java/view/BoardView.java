@@ -10,11 +10,11 @@ import models.Player;
 import models.Point2D;
 import models.WorldMap;
 
-public interface StubbornView {
+public interface BoardView {
     
     public void initializeView(Point2D playerPos, List<Pair<Point2D,Class<? extends Entity>>> allEntities);
     
-    public void updateWorldMap(Point2D playerPos);
+    public void updateWorldMap(Point2D playerPos, int numEntitiesRemaining);
     
     public void takeDamage(Player player);
     

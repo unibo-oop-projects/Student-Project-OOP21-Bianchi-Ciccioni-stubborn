@@ -13,7 +13,7 @@ import models.RandomSpawnStrategy;
 import models.SpawnStrategy;
 import models.WorldMap;
 import models.WorldMapImpl;
-import view.StubbornView;
+import view.BoardView;
 import view.javafx.StubbornViewJavaFX;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -47,14 +47,14 @@ import javax.imageio.ImageIO;
 
 public final class BoardController {
     
-    private static final int WIDTH = 51;
-    private static final int HEIGHT = 51;
+    private static final int WIDTH = 50;
+    private static final int HEIGHT = 50;
     private static final int ENEMIES = 8;
     private static final int COLLECTABLES = 10;
     
     private final SpawnStrategy spawnStrat;
     private final WorldMap gameWorldMap;
-    private StubbornView worldMapView;
+    private BoardView worldMapView;
     private Point2D previousPlayerPos;
     @FXML
     private Pane mainPane;
@@ -121,9 +121,12 @@ public final class BoardController {
     private void updateMap(MOVEMENT movement) {
         this.gameWorldMap.movePlayer(movement);
         Point2D playerPos = this.gameWorldMap.getPlayerPos();
+        System.out.println(playerPos);
         if(playerPos.equals(this.previousPlayerPos)) {
             this.worldMapView.takeDamage((Player)this.gameWorldMap.getBoard().get(this.previousPlayerPos).get());
+        } else {
+            this.worldMapView.updateWorldMap(playerPos, this.gameWorldMap.getEntitiesPos().size());
         }
-        this.worldMapView.updateWorldMap(playerPos);
+        this.previousPlayerPos = playerPos;
     } 
 }

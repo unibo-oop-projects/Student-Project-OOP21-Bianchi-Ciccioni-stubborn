@@ -34,8 +34,8 @@ public final class menuUIController {
     }
     */
     
-    private static final int SCENE_WIDTH = 1000;
-    private static final int SCENE_HEIGHT = 1000;
+    private static final int SCENE_WIDTH = 500;
+    private static final int SCENE_HEIGHT = 500;
     
     @FXML
     private Button exitButton;
@@ -71,7 +71,7 @@ public final class menuUIController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        final Scene scene = new Scene(root, SCENE_WIDTH, SCENE_HEIGHT);
+        final Scene scene = new Scene(root, SCENE_WIDTH + 50, SCENE_HEIGHT + 50);
         boardStage.setScene(scene);
         boardStage.show();
     }
