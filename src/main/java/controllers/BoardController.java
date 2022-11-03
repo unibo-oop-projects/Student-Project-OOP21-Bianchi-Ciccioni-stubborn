@@ -17,7 +17,9 @@ import view.BoardView;
 import view.javafx.BoardViewJavaFX;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -34,6 +36,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -121,13 +124,21 @@ public final class BoardController {
     private void updateMap(MOVEMENT movement) {
         this.gameWorldMap.movePlayer(movement);
         Point2D playerPos = this.gameWorldMap.getPlayerPos();
-        //System.out.println(playerPos);
+        System.out.println(this.gameWorldMap.getBoard().get(playerPos));
         if(playerPos.equals(this.previousPlayerPos)) {
-            this.worldMapView.takeDamage((Player)this.gameWorldMap.getBoard().get(this.previousPlayerPos).get());
+            Player player = (Player)this.gameWorldMap.getBoard().get(playerPos).get();
+            player.setHealth(-1);
+            System.out.println("Damage Taken");
+            System.out.println(player.getHealth());
+            if(player.getHealth() <= 0) {
+                this.worldMapView.gameOver();
+            }
         } else {
             //System.out.println(this.gameWorldMap.getEntitiesPos().size());
-            this.worldMapView.updateWorldMap(playerPos, this.gameWorldMap.getEntitiesPos().size());
+            this.worldMapView.updateWorldMap(playerPos, this.gameWorldMap.getEntitiesPos().size(),this.gameWorldMap.getEntitiesPos());
         }
         this.previousPlayerPos = playerPos;
-    } 
+    }
+
+    
 }

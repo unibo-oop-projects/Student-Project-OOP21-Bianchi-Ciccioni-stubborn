@@ -68,6 +68,7 @@ public class WorldMapImpl implements WorldMap{
      */
     @Override
     public void movePlayer(MOVEMENT movement) {
+        this.moveEnemies();
         Point2D newPos = Point2D.sum(this.playerPosition, movement.movement);
         if(!this.collisionStrategy.checkCollisions(this.getBoard(), newPos, this.board_width, this.board_height)){
             Entity player = this.board.replace(this.playerPosition, Optional.empty()).get();
@@ -75,7 +76,6 @@ public class WorldMapImpl implements WorldMap{
             player.setPosition(this.playerPosition);
             this.board.put(this.playerPosition, Optional.of(player));
         }
-        this.moveEnemies();
     }
     
     private void moveEnemies() {

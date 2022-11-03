@@ -10,7 +10,7 @@ public class CollisionImpl implements CollisionStrategy {
         if(newPos.getX() >= width || newPos.getX() < 0 || newPos.getY() >= height || newPos.getY() < 0) {
             return true;
         }
-        return board.get(newPos).isPresent() && board.get(newPos).get() instanceof Enemy;
+        return board.get(newPos).isPresent() && (board.get(newPos).get() instanceof Enemy || board.get(newPos).get() instanceof Player);
     }
     
 }

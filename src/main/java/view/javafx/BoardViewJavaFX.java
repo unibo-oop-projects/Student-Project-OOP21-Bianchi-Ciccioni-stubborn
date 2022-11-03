@@ -33,7 +33,6 @@ import models.MOVEMENT;
 import models.Pair;
 import models.Player;
 import models.Point2D;
-import models.WorldMap;
 import view.BoardView;
 
 public class BoardViewJavaFX implements BoardView {
@@ -48,7 +47,7 @@ public class BoardViewJavaFX implements BoardView {
     private Stage boardStage;
     private Canvas playerCanvas;
     private Map<Point2D,Canvas> collCanvas = new HashMap<>();
-    private Map<Point2D,Canvas> enCnavas = new HashMap<>();
+    private Map<Point2D,Canvas> enCanvas = new HashMap<>();
 
     public BoardViewJavaFX(final Pane mainPane, final int height, final int width) {
         this.mainPane = mainPane;
@@ -93,14 +92,14 @@ public class BoardViewJavaFX implements BoardView {
          */
         for(Pair<Point2D,Class<? extends Entity>> i : allEntities) {
             if(i.getY().equals(EnemyImpl.class)) {
-                this.enCnavas.put(i.getX(),new Canvas(this.width, this.height));
+                this.enCanvas.put(i.getX(),new Canvas(this.width, this.height));
             }
             else {
                 this.collCanvas.put(i.getX(),new Canvas(this.width, this.height));
             }
         }
         
-        this.enCnavas.forEach((pos, en) -> {
+        this.enCanvas.forEach((pos, en) -> {
             en.setLayoutX(pos.getX() * SCREEN_SIZE_MATCH);
             en.setLayoutY(pos.getY() * SCREEN_SIZE_MATCH);
             en.getGraphicsContext2D().setFill(Paint.valueOf("#555555"));
@@ -122,21 +121,37 @@ public class BoardViewJavaFX implements BoardView {
         gEnemy.fillRect(0, 0, WIDTH, HEIGHT);*/
         //System.out.println(this.collCanvas);
         this.mainPane.getChildren().add(this.playerCanvas);
-        this.mainPane.getChildren().addAll(this.enCnavas.values());
+        this.mainPane.getChildren().addAll(this.enCanvas.values());
         this.mainPane.getChildren().addAll(this.collCanvas.values());
     }
     
     @Override
-    public void updateWorldMap(Point2D playerPos, int numEntitiesRemaining) {
+    public void updateWorldMap(Point2D playerPos, int numEntitiesRemaining, List<Pair<Point2D,Class<? extends Entity>>> allEntities) {
         GraphicsContext gc = this.playerCanvas.getGraphicsContext2D();
         gc.setFill(Paint.valueOf("#009630"));
         gc.clearRect(0, 0, this.width, this.height);
         this.playerCanvas.setLayoutX(playerPos.getX() * SCREEN_SIZE_MATCH);
         this.playerCanvas.setLayoutY(playerPos.getY() * SCREEN_SIZE_MATCH);
         gc.fillRect(0, 0, this.width, this.height);
+        //System.out.println(this.enCanvas);
+        this.enCanvas.forEach((pos, en) -> {
+            en.getGraphicsContext2D().clearRect(0, 0, this.width, this.height);
+            this.mainPane.getChildren().remove(en);
+        });
+        this.enCanvas.clear();
+        allEntities.removeIf(el -> !el.getY().equals(EnemyImpl.class));
+        allEntities.forEach(p -> this.enCanvas.put(p.getX(), new Canvas(this.width, this.height)));
+        //System.out.println(this.enCanvas);
+        this.enCanvas.forEach((pos, en) -> {
+            en.setLayoutX(pos.getX() * SCREEN_SIZE_MATCH);
+            en.setLayoutY(pos.getY() * SCREEN_SIZE_MATCH);
+            en.getGraphicsContext2D().setFill(Paint.valueOf("#555555"));
+            en.getGraphicsContext2D().fillRect(0, 0, this.width, this.height);
+        });
+        this.mainPane.getChildren().addAll(this.enCanvas.values());
         //System.out.println(this.playerCanvas.getLayoutX());
         //System.out.println(this.playerCanvas.getLayoutY());
-        if(this.enCnavas.size() + this.collCanvas.size() > numEntitiesRemaining) {
+        if(this.enCanvas.size() + this.collCanvas.size() > numEntitiesRemaining) {
             GraphicsContext gColl = this.collCanvas.get(playerPos).getGraphicsContext2D();
             gColl.clearRect(0, 0, this.width, this.height);
             Canvas el = this.collCanvas.get(playerPos);
@@ -158,20 +173,7 @@ public class BoardViewJavaFX implements BoardView {
     }
 
     @Override
-    public void takeDamage(Player player) { 
-        /*
-        String musicFile = "Hit_sound.mp3";
-        AudioClip sound = new AudioClip(new File(musicFile).toURI().toString());
-        mediaPlayer.play();*/
-        player.setHealth(-1);
-        System.out.println("Damage Taken");
-        System.out.println(player.getHealth());
-        if(player.getHealth() <= 0) {
-            this.gameOver();
-        }
-    }
-
-    private void gameOver() {
+    public void gameOver() {
         Parent root = null;
         try {
             root = FXMLLoader.load(ClassLoader.getSystemResource("layouts/menu.fxml"));
@@ -181,6 +183,6 @@ public class BoardViewJavaFX implements BoardView {
         final Scene scene = new Scene(root, this.boardStage.getHeight(), this.boardStage.getWidth());
         boardStage.setScene(scene);
         boardStage.show();
-    }
+    } 
 
 }
