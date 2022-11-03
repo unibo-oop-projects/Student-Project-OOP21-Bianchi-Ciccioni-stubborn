@@ -61,10 +61,10 @@ public class BoardViewJavaFX implements BoardView {
         //set dimension of scene correctly (there is a constructor for this
         Scene boardScene = this.mainPane.getScene();
         this.boardStage.setScene(boardScene);
-        System.out.println(boardScene.getHeight());
-        System.out.println(boardScene.getWidth());
-        System.out.println(this.boardStage.getHeight());
-        System.out.println(this.boardStage.getWidth());
+        //System.out.println(boardScene.getHeight());
+        //System.out.println(boardScene.getWidth());
+        //System.out.println(this.boardStage.getHeight());
+        //System.out.println(this.boardStage.getWidth());
         boardScene.getRoot().requestFocus();
         BackgroundFill bf = new BackgroundFill(Paint.valueOf("#000000"),
                 CornerRadii.EMPTY , Insets.EMPTY);
@@ -108,11 +108,11 @@ public class BoardViewJavaFX implements BoardView {
         });
         this.collCanvas.forEach((pos, coll) -> {
             coll.setLayoutX(pos.getX() * SCREEN_SIZE_MATCH);
-            coll.setLayoutY(pos.getX() * SCREEN_SIZE_MATCH);
+            coll.setLayoutY(pos.getY() * SCREEN_SIZE_MATCH);
             coll.getGraphicsContext2D().setFill(Paint.valueOf("#FFFF00"));
             coll.getGraphicsContext2D().fillRect(0, 0, this.width, this.height);
         });
-        System.out.println(this.enCnavas);
+        //System.out.println(this.enCnavas);
         /*
         Canvas enCanvas = this.enCnavas.get(enPos);
         enCanvas.setLayoutX(enPos.getX()*3);
@@ -120,7 +120,7 @@ public class BoardViewJavaFX implements BoardView {
         GraphicsContext gEnemy = enCanvas.getGraphicsContext2D();
         gEnemy.setFill(Paint.valueOf("#555555"));
         gEnemy.fillRect(0, 0, WIDTH, HEIGHT);*/
-        System.out.println(this.collCanvas);
+        //System.out.println(this.collCanvas);
         this.mainPane.getChildren().add(this.playerCanvas);
         this.mainPane.getChildren().addAll(this.enCnavas.values());
         this.mainPane.getChildren().addAll(this.collCanvas.values());
@@ -134,12 +134,16 @@ public class BoardViewJavaFX implements BoardView {
         this.playerCanvas.setLayoutX(playerPos.getX() * SCREEN_SIZE_MATCH);
         this.playerCanvas.setLayoutY(playerPos.getY() * SCREEN_SIZE_MATCH);
         gc.fillRect(0, 0, this.width, this.height);
-        System.out.println(this.playerCanvas.getLayoutX());
-        System.out.println(this.playerCanvas.getLayoutY());
-        if(this.enCnavas.size() + this.collCanvas.size() < numEntitiesRemaining) {
+        //System.out.println(this.playerCanvas.getLayoutX());
+        //System.out.println(this.playerCanvas.getLayoutY());
+        if(this.enCnavas.size() + this.collCanvas.size() > numEntitiesRemaining) {
             GraphicsContext gColl = this.collCanvas.get(playerPos).getGraphicsContext2D();
             gColl.clearRect(0, 0, this.width, this.height);
+            Canvas el = this.collCanvas.get(playerPos);
+            this.collCanvas.remove(playerPos);
+            this.mainPane.getChildren().remove(el);  //add(this.playerCanvas);
         }
+        //System.out.println(this.collCanvas.size());
     }
 
     @Override

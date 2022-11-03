@@ -58,7 +58,7 @@ public final class menuUIController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        final Scene scene = new Scene(root, SCENE_WIDTH, SCENE_HEIGHT);
+        final Scene scene = new Scene(root, SCENE_WIDTH + 40, SCENE_HEIGHT + 40);
         boardStage.setScene(scene);
         boardStage.show();
     }
@@ -71,7 +71,7 @@ public final class menuUIController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        final Scene scene = new Scene(root, SCENE_WIDTH + 50, SCENE_HEIGHT + 50);
+        final Scene scene = new Scene(root, SCENE_WIDTH, SCENE_HEIGHT);
         boardStage.setScene(scene);
         boardStage.show();
     }

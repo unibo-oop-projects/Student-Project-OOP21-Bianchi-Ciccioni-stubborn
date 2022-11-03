@@ -121,10 +121,11 @@ public final class BoardController {
     private void updateMap(MOVEMENT movement) {
         this.gameWorldMap.movePlayer(movement);
         Point2D playerPos = this.gameWorldMap.getPlayerPos();
-        System.out.println(playerPos);
+        //System.out.println(playerPos);
         if(playerPos.equals(this.previousPlayerPos)) {
             this.worldMapView.takeDamage((Player)this.gameWorldMap.getBoard().get(this.previousPlayerPos).get());
         } else {
+            //System.out.println(this.gameWorldMap.getEntitiesPos().size());
             this.worldMapView.updateWorldMap(playerPos, this.gameWorldMap.getEntitiesPos().size());
         }
         this.previousPlayerPos = playerPos;

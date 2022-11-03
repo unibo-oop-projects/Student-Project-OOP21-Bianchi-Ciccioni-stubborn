@@ -11,6 +11,7 @@ import java.util.Map.Entry;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+
 public class WorldMapImpl implements WorldMap{
 
     private int board_width;
@@ -46,7 +47,6 @@ public class WorldMapImpl implements WorldMap{
      */
     private void spawnEntity() {
         if(this.spawnStrategy.checkNumPoints(this.board_width * this.board_height, this.num_enemies + this.num_collectables)) {
-          //Set<Pair<Integer,Integer>> spawnPoints = this.spawnStrategy.getSpawnPoints(BOARD_WIDTH, BOARD_HEIGHT, NUM_ENEMIES + NUM_COLLECTABLES);
             Set<Point2D> enSpawnPoints = this.spawnStrategy.getSpawnPoints(this.board_width, this.board_height, this.num_enemies);
             Set<Point2D> collectSpawnPoints = this.spawnStrategy.getSpawnPoints(this.board_width, this.board_height, this.num_collectables);
             Set<Point2D> everyPoint = this.spawnStrategy.getDoubleSpawnPoints(this.board_width, this.board_height, enSpawnPoints, collectSpawnPoints);
@@ -75,8 +75,30 @@ public class WorldMapImpl implements WorldMap{
             player.setPosition(this.playerPosition);
             this.board.put(this.playerPosition, Optional.of(player));
         }
+        this.moveEnemies();
     }
     
+    private void moveEnemies() {
+        List<Pair<Point2D,Class<? extends Entity>>> entitiesPos = this.getEntitiesPos();
+        entitiesPos.removeIf(el -> !el.getY().equals(EnemyImpl.class));
+        //System.out.println(entitiesPos);
+        if(entitiesPos.size() > 0) {
+            for(Pair<Point2D,Class<? extends Entity>> enemy : entitiesPos) {
+                Enemy en = (Enemy) this.board.get(enemy.getX()).get();
+                Point2D newPos = en.getAi().move(this.getBoard(), this.playerPosition, enemy.getX());
+                if(!this.collisionStrategy.checkCollisions(this.getBoard(), newPos, this.board_width, this.board_height)) {
+                    this.board.replace(enemy.getX(), Optional.empty());
+                    en.setPosition(newPos);
+                    this.board.put(newPos, Optional.of(en));
+                }
+            }
+        }
+        /*
+        List<Pair<Point2D,Class<? extends Entity>>> entitiesPos2 = this.getEntitiesPos();
+        entitiesPos2.removeIf(el -> !el.getY().equals(EnemyImpl.class));
+        System.out.println(entitiesPos2);*/
+    }
+
     @Override
     public Map<Point2D,Optional<Entity>> getBoard() {
         return this.board;
