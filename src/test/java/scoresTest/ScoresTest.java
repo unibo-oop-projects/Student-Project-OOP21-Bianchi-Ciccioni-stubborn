@@ -19,7 +19,9 @@ public class ScoresTest {
         s.setScore("Matteo", 150);
         s.setScore("Andrea", 180);
         List<Pair<String, Integer>> result = s.getAllScores();
-        assertTrue(result.size() == 3);
+        assertTrue(result.contains(new Pair<>("Marco", 50)));
+        assertTrue(result.contains(new Pair<>("Matteo", 150)));
+        assertTrue(result.contains(new Pair<>("Andrea", 180)));
     }
     
     @Test

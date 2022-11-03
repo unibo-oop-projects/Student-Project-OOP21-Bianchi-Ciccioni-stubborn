@@ -34,8 +34,8 @@ public final class menuUIController {
     }
     */
     
-    private static final int SCENE_WIDTH = 1000;
-    private static final int SCENE_HEIGHT = 1000;
+    private static final int SCENE_WIDTH = 500;
+    private static final int SCENE_HEIGHT = 500;
     
     @FXML
     private Button exitButton;
