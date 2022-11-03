@@ -1,4 +1,4 @@
-package view.javafx;
+package view;
 
 import java.io.File;
 import java.io.FileInputStream;

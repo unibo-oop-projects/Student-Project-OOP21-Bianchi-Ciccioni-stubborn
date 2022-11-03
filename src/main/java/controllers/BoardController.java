@@ -14,7 +14,7 @@ import models.SpawnStrategy;
 import models.WorldMap;
 import models.WorldMapImpl;
 import view.BoardView;
-import view.javafx.BoardViewJavaFX;
+import view.BoardViewJavaFX;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
