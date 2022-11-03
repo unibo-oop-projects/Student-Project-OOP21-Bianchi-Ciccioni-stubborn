@@ -54,6 +54,8 @@ public class ScoreController {
         ObservableList<Pair<String, Integer>> data = FXCollections.<Pair<String, Integer>>observableArrayList();
         ObservableList<String> dataName = FXCollections.<String>observableArrayList(n);
         ObservableList<String> dataScore = FXCollections.<String>observableArrayList(l);
+        System.out.println(n.toString());
+        System.out.println(l.toString());
         data.addAll(s.getAllScores());
         //System.out.println("data print");
         //System.out.println(data.toString());

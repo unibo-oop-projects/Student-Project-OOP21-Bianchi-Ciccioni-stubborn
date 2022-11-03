@@ -10,7 +10,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.List;
 
 public class ScoresTest {
-    
     private Scores s = new ScoresImpl();
     
     @Test
@@ -30,5 +29,4 @@ public class ScoresTest {
         List<Pair<String, Integer>> result = s.getAllScores();
         assertTrue(result.contains(expected));
     }
-
 }

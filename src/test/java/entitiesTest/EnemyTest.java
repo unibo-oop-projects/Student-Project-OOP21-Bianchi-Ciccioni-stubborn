@@ -20,7 +20,6 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class EnemyTest {
-    
     private Point2D startPlayerPosition = new Point2D(1,1);
     
     private Point2D startEnemy1Position = new Point2D(5,5);
@@ -65,5 +64,4 @@ public class EnemyTest {
         //assertEquals(e2.getAi(), ai2);
         assertTrue(dBefore > dAfter);
     }
-
 }
