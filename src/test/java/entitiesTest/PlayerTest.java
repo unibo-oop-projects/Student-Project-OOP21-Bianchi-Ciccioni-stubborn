@@ -17,7 +17,6 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PlayerTest {
-    
     static int WIDTH = 51;
     static int HEIGHT = 51;
     static int NUM_ENEMIES = 5;
@@ -37,7 +36,5 @@ public class PlayerTest {
         assertTrue(board.get(leftPosition).isPresent());
         assertTrue(board.get(leftPosition).get() instanceof Player);
         assertTrue(board.get(startPlayerPos).isEmpty());
-        
     }
-
 }
