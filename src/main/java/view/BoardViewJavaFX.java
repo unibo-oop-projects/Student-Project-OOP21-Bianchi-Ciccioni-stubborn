@@ -22,7 +22,6 @@ import models.EnemyImpl;
 import models.Entity;
 import models.Pair;
 import models.Point2D;
-import view.BoardView;
 
 public class BoardViewJavaFX implements BoardView {
     
