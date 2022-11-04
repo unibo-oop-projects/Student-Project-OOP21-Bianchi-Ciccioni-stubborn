@@ -22,3 +22,6 @@ Andrea:180
 Marco:50
 Matteo:150
 Andrea:180
+Marco:50
+Matteo:150
+Andrea:180

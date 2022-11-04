@@ -11,7 +11,7 @@ import java.util.List;
 
 public class ScoresTest {
     private Scores s = new ScoresImpl();
-    
+
     @Test
     public void writeScoreTest() {
         s.setScore("Marco", 50);
@@ -22,7 +22,7 @@ public class ScoresTest {
         assertTrue(result.contains(new Pair<>("Matteo", 150)));
         assertTrue(result.contains(new Pair<>("Andrea", 180)));
     }
-    
+
     @Test
     public void readScoreTest() {
         Pair<String, Integer> expected = new Pair<>("Marco", 50);

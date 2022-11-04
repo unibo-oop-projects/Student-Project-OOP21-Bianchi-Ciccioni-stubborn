@@ -11,20 +11,20 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CollectableTest {
-    
-    static int MIN = 60;
-    static int NUM_COLL = 10;
-    List<Collectable> listCollectables = new ArrayList<>();
-    
+
+    private static int MIN = 60;
+    private static int NUMCOLL = 10;
+    private List<Collectable> listCollectables = new ArrayList<>();
+
     @Test
     public void testCollectable() {
-        for(int i = 0; i < NUM_COLL; i++) {
+        for (int i = 0; i < NUMCOLL; i++) {
             listCollectables.add(new CollectableImpl());
         }
-        assertEquals(NUM_COLL, listCollectables.size());
+        assertEquals(NUMCOLL, listCollectables.size());
         listCollectables.removeIf(col -> col.getPoints() < MIN);
         Iterator<Collectable> iter = listCollectables.iterator();
-        while(iter.hasNext()) {
+        while (iter.hasNext()) {
             assertTrue(iter.next().getPoints() > MIN);
         }
     }
