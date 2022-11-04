@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,7 +20,6 @@ import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import models.EnemyImpl;
 import models.Entity;
-import models.MOVEMENT;
 import models.Pair;
 import models.Point2D;
 import view.BoardView;

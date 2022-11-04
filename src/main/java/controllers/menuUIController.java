@@ -25,7 +25,6 @@ public final class menuUIController {
     private Pane mainPane;
     
     public menuUIController() {
-        System.out.println("test");
     }
     
     public void newGame() {
