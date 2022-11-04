@@ -11,7 +11,12 @@ import java.util.Map.Entry;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-
+/**
+ * WorldMapImpl is a class that implements WorldMap and its contracts.
+ * It generates the actual game map, setting its boundaries,
+ * the number of entities that it contains, what kind of collision and stategy of spawning
+ * will use, etc
+ */
 public class WorldMapImpl implements WorldMap{
 
     private int board_width;
@@ -23,6 +28,17 @@ public class WorldMapImpl implements WorldMap{
     private SpawnStrategy spawnStrategy;
     private CollisionStrategy collisionStrategy;
     
+    /**
+     * This is the constructor of WorldMapImpl. It creates at first an empty Map the represents
+     * the game map, it then calls another private method spawnEntity() to fill it 
+     * with number of entities required
+     * 
+     * @param The width of the map
+     * @param The height of the map
+     * @param The number of enemies to spawn at the start
+     * @param The number of enemies to spawn at the start
+     * @param The strategy that the class will use to spawn the entities
+     */
     public WorldMapImpl(int width, int height, int enemies, int collectables, SpawnStrategy strategy) {
         this.board_width = width;
         this.board_height = height;
@@ -45,6 +61,11 @@ public class WorldMapImpl implements WorldMap{
      * a Set of positions for the enemies, then for the collectables; after that, it combines
      * this two sets and checks if there are duplicates, regenerating new positions if so.
      */
+    /**
+     * Simple method used to spawn entities. It applies methods contained in SpawnStrategy to get 
+     * the number of positions required for enemies and collectables, avoiding duplicates.
+     * It then puts in board pairs key-value (position of entity, new Entity of a specific type). 
+     */
     private void spawnEntity() {
         if(this.spawnStrategy.checkNumPoints(this.board_width * this.board_height, this.num_enemies + this.num_collectables)) {
             Set<Point2D> enSpawnPoints = this.spawnStrategy.getSpawnPoints(this.board_width, this.board_height, this.num_enemies);
@@ -61,10 +82,14 @@ public class WorldMapImpl implements WorldMap{
         }
     }
     
-    /*
-     * this is the logical method used to move the player character: after receiving a specific
-     * movement enum, we check if there is a possible collision with an enemy or the worldmap boundaries;
-     * if not, then we move the player to a nearby cell of our map based on the input movement.
+    /**
+     * This is the logical method used to move the player character.
+     * Before moving the player, this method also calls private void moveEnemies(). After that,
+     * it checks if there is a possible collision with an enemy or the boundaries of the map.
+     * This is done thanks to checkCollisions() method from Collision class.
+     * If there is no collision, it moves the player by one tile in the map in a given direction.
+     * 
+     * @param Movement for the player based on key typed by the user
      */
     @Override
     public void movePlayer(MOVEMENT movement) {
@@ -78,6 +103,11 @@ public class WorldMapImpl implements WorldMap{
         }
     }
     
+    /**
+     * Moves each Enemy by one tile based on movement given its Ai. For each enemy,it checks 
+     * at first using methods from Collision class if said movement is possible; if it is,
+     * it moves said enemy.
+     */
     private void moveEnemies() {
         List<Pair<Point2D,Class<? extends Entity>>> entitiesPos = this.getEntitiesPos();
         entitiesPos.removeIf(el -> !el.getY().equals(EnemyImpl.class));
@@ -94,16 +124,26 @@ public class WorldMapImpl implements WorldMap{
         }
     }
 
+    
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Map<Point2D,Optional<Entity>> getBoard() {
         return this.board;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Point2D getPlayerPos() {
         return this.playerPosition;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Pair<Point2D,Class<? extends Entity>>> getEntitiesPos() {
         List<Pair<Point2D,Class<? extends Entity>>> entitiesPos = new ArrayList<>();
@@ -115,8 +155,10 @@ public class WorldMapImpl implements WorldMap{
         return entitiesPos;
     }
     
-    /*
-     * this is used to set a possible random Ai to an enemy
+    /**
+     * Set one of the possible AIs to an enemy
+     * 
+     * @return One possible Ai for the Enemy
      */
     private AiEnemy getEnemyAi() {
         Random r = new Random();

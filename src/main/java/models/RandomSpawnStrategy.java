@@ -4,9 +4,16 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
+/**
+ * RandomSpawnStrategy is a class that implements SpawnStrategy and its contracts.
+ * It generates each new position using random values, which are all contained inside the boundaries
+ * of the game map
+ */
 public class RandomSpawnStrategy implements SpawnStrategy{
     
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Set<Point2D> getSpawnPoints(int width, int height, int numPoints) {
         Random r = new Random();
@@ -20,6 +27,9 @@ public class RandomSpawnStrategy implements SpawnStrategy{
         return spawnPoints;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Set<Point2D> getDoubleSpawnPoints(int width, int height, Set<Point2D> points1, Set<Point2D> points2){
         Set<Point2D> allPoints = new HashSet<>();
@@ -31,6 +41,9 @@ public class RandomSpawnStrategy implements SpawnStrategy{
         return allPoints;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean checkNumPoints(int boardDimension, int numPoints) {
         return boardDimension > numPoints;

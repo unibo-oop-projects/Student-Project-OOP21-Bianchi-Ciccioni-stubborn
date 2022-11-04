@@ -21,7 +21,11 @@ import javafx.scene.layout.Pane;
 
 import java.util.List;
 
-
+/**
+ * BoardController is a presenter class (we called it a controller to make its role more clear)
+ * that connects the logical game map with its counterpart. It takes elements from the WorldMap model
+ * so that they can be used by the BoardView to properly show each event and scenario to the user
+ */
 public final class BoardController {
     
     private static final int WIDTH = 50;
@@ -36,11 +40,20 @@ public final class BoardController {
     @FXML
     private Pane mainPane;
     
+    /**
+     * This is the constructor of the controller
+     */
     public BoardController() {
         this.spawnStrat  = new RandomSpawnStrategy();
         this.gameWorldMap = new WorldMapImpl(WIDTH, HEIGHT, ENEMIES, COLLECTABLES, spawnStrat);
     }
     
+    /**
+     * Get the key pressed by the user and call for the update the map according to the type of movement key
+     * pressed by user (up,down,left,right)
+     * 
+     * @param Key pressed by user
+     */
     @FXML
     private void onDirectionalKeyPress(final KeyEvent keyEvent) {
         KeyCode key = keyEvent.getCode();
@@ -62,12 +75,17 @@ public final class BoardController {
         }
     }
     
+    /**
+     * Call for the initialization of the map view
+     */
     @FXML
     private void initialize() {
         Platform.runLater(() -> this.initalizeView());
     }
 
-    
+    /**
+     * Properly initialize the view of the map, instantiating necessary elements
+     */
     private void initalizeView() {
         this.worldMapView = new BoardViewJavaFX(this.mainPane, HEIGHT, WIDTH);
         this.previousPlayerPos = this.gameWorldMap.getPlayerPos();
@@ -75,6 +93,11 @@ public final class BoardController {
         this.worldMapView.initializeView(this.previousPlayerPos, allEntities);
     }
     
+    /**
+     * Update the game map both logically and graphically, depending on the key pressed by the user
+     * 
+     * @param Movement depending on the key pressed by user
+     */
     private void updateMap(MOVEMENT movement) {
         this.gameWorldMap.movePlayer(movement);
         Point2D playerPos = this.gameWorldMap.getPlayerPos();
@@ -91,6 +114,4 @@ public final class BoardController {
         }
         this.previousPlayerPos = playerPos;
     }
-
-    
 }
