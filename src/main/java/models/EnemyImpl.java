@@ -1,6 +1,5 @@
 package models;
 
-import java.util.Random;
 
 public class EnemyImpl implements Enemy {
     
@@ -29,7 +28,6 @@ public class EnemyImpl implements Enemy {
 
     @Override
     public Point2D getPosition() {
-        // TODO Auto-generated method stub
         return this.position;
     }
 

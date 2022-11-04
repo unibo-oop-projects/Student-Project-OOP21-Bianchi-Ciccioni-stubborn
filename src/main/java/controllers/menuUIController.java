@@ -11,28 +11,6 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public final class menuUIController {
-    /*
-    @FXML
-    private static final Button btnPlay;
-    
-    @FXML
-    private static final Button btnScore;
-
-    @FXML
-    public static void btnPlayOnClickHandler() {
-        application.Menu.hideMenu();
-        application.Backgrounds.main();
-        controllers.backgroundsUIController.startTimer();
-        controllers.backgroundsUIController.refillLife();
-    }
-
-    @FXML
-    public static void btnScoreOnClickHandler() {
-        application.Menu.hideMenu();
-        /* startBoard();	sostituire a startBoard il nome dato alla
-         *  funzione che apre la visualizzazione del set dei punteggi */ /*
-    }
-    */
     
     private static final int SCENE_WIDTH = 500;
     private static final int SCENE_HEIGHT = 500;

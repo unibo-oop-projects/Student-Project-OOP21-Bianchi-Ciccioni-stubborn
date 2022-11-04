@@ -1,14 +1,10 @@
 package view;
 
 import java.util.List;
-import java.util.function.Consumer;
 
 import models.Entity;
-import models.MOVEMENT;
 import models.Pair;
-import models.Player;
 import models.Point2D;
-import models.WorldMap;
 
 public interface BoardView {
     
@@ -18,6 +14,5 @@ public interface BoardView {
     
     public void gameOver();
     
-    public void addDirectionalKeyPressHandler(Consumer<MOVEMENT> handler);
-    
+   
 }

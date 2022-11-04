@@ -81,7 +81,6 @@ public class WorldMapImpl implements WorldMap{
     private void moveEnemies() {
         List<Pair<Point2D,Class<? extends Entity>>> entitiesPos = this.getEntitiesPos();
         entitiesPos.removeIf(el -> !el.getY().equals(EnemyImpl.class));
-        //System.out.println(entitiesPos);
         if(entitiesPos.size() > 0) {
             for(Pair<Point2D,Class<? extends Entity>> enemy : entitiesPos) {
                 Enemy en = (Enemy) this.board.get(enemy.getX()).get();
@@ -93,10 +92,6 @@ public class WorldMapImpl implements WorldMap{
                 }
             }
         }
-        /*
-        List<Pair<Point2D,Class<? extends Entity>>> entitiesPos2 = this.getEntitiesPos();
-        entitiesPos2.removeIf(el -> !el.getY().equals(EnemyImpl.class));
-        System.out.println(entitiesPos2);*/
     }
 
     @Override
@@ -127,36 +122,5 @@ public class WorldMapImpl implements WorldMap{
         Random r = new Random();
         int randomSelect = r.nextInt(2);
         return randomSelect == 0 ? new RandomAiEnemy() : new FocusAiEnemy();
-    }   
-    /*
-     * Scrivere i test dei models!!
-     * Cominciare a scrivere note per la relazione del progetto (riguardo DESIGN/ARCHITETTURA e
-     * IMPLEMENTAZIONE fatta da me)
-     * ROBA DA MIGLIORARE:fare sì che la playerPosition nuova sia gestita da Enum e non da movePlayer stesso
-     * bisogna quindi sistemare il BOARD.replace utilizzato perchè nonostante funziona, potrebbe
-     * trovarsi in una situazione di Exception.
-     * Considerare un sistema di Spawn nel caso di morte dei nemici.
-     * Sistemare set delle posizioni dei nemici/collectables utilizzando Combiner
-     * Per ogni Collectables dagli un Enum con un attributo per il punteggio (per distinguere cosa succede)
-     * Migliorare in caso questo design di Enum dei Collectables
-     */
-    
-    
-    /*
-     * un player, un enemy, un collectible sono entità, caricate in maniera diversa.
-     * interagibili tra loro. Entità può essere un Character o un Collectible (Charater è
-     * Player o Enemy). Gerarchia di partenza da sfruttare. Utile anche per le View. Fanno cose diverse
-     * a livello logico, ma si visualizzano allo stesso modo (Controller passa alla View degli Entity
-     * da visualizzare). Visualizzi Entity sulla mappa con Player con posizione specifica iniziale, spawn
-     * iniziale di nemico random, spawn dei collectible random.
-     * COLLISIONI: deve creare interfaccia per la collisione dove non richiedo quasi niente nè devo
-     * fare troppi metodi a riguardo. Può farlo in diversi modi (tipo con Lambda fornendo la Mappa
-     * come le coordinate o i limiti della mappa).
-     * Come gestire la mappa (consigli): struttura dati da usare migliore è Map che ha come chiave
-     * un Pair di coordinate e come valore un Optional Entity.
-     * Molto utile per capire come fare con le collisioni e individuare le Entity presenti (e quali spazi sono
-     * occupati). Se così un Character si vuole muovere guardo dove si vuole muovere (controllo
-     * se sta uscendo dalla mappa, è uno spazio vuoto, sta andando contro un nemico...)
-     */
-    
+    }       
 }
