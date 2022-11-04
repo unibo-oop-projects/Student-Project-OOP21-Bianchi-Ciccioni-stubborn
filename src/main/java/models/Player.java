@@ -1,5 +1,5 @@
 package models;
 
-public interface Player extends Character{
-    
+public interface Player extends Character {
+
 }

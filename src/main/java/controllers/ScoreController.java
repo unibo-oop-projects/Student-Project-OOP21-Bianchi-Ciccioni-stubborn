@@ -18,15 +18,15 @@ import models.Scores;
 import models.ScoresImpl;
 
 public class ScoreController {
-    
+
     private final Scores s = new ScoresImpl();
-    
+
     @FXML
     private Stage boardStage;
-    
+
     @FXML
     private Pane scorePane;
-     
+
     @FXML
     private TableView<List<Pair<String, Integer>>> scoreTable;
 
@@ -35,17 +35,17 @@ public class ScoreController {
 
     @FXML
     private TableColumn<String, String> name;
-    
+
     @FXML
     private void initialize() {
         System.out.println(s.getAllScores());
         Platform.runLater(() -> this.initializeView());
     }
-    
+
     private void initializeView() {
         List<String> n = new ArrayList<>();
         List<String> l = new ArrayList<>();
-        for(var e : s.getAllScores()) {
+        for (var e : s.getAllScores()) {
             n.add(e.getX());
             l.add(e.getY().toString());
         }
@@ -67,10 +67,10 @@ public class ScoreController {
             //System.out.println("name: " +  s.getX() + " " + "score: " + s.getY());
             score.setCellValueFactory(new PropertyValueFactory<String, String>(s));
         });
-        
+
         scoreTable.getItems().add(data);
     }
-    
+
 }
 
 

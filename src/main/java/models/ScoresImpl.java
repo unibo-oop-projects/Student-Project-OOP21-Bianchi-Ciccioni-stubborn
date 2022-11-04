@@ -14,7 +14,7 @@ import java.util.Scanner;
 public class ScoresImpl implements Scores {
 
     private List<Pair<String, Integer>> scores = new ArrayList<>();
-    
+
     public ScoresImpl() {
         //TODO inizialize the scores list with the content of score.txt file
         try {
@@ -29,29 +29,36 @@ public class ScoresImpl implements Scores {
         }
     }
 
+    /**
+     * 
+     */
     @Override
-    public void setScore(String name, Integer score) {
+    public void setScore(final String name, final Integer score) {
         String result = name + ":" + score.toString();
         writeScoreIntoFile(result);
         this.scores.add(new Pair<>(name, score));
     }
-    
+
+    /**
+     * 
+     */
     @Override
     public List<Pair<String, Integer>> getAllScores() {
         return this.scores;
     }
-    
-    
+
+    /**
+     * 
+     */
     @Override
     public String getScore() {
         String score = readScoreFromFile();
         return score;
     }
-    
-    
-    private void writeScoreIntoFile(String score) {
+
+    private void writeScoreIntoFile(final String score) {
         File scoreFile = new File("score.txt");
-        if(!scoreFile.exists()) {
+        if (!scoreFile.exists()) {
             try {
                 scoreFile.createNewFile();
             } catch (IOException e) {
@@ -68,7 +75,7 @@ public class ScoresImpl implements Scores {
             e.printStackTrace();
         } finally {
             try {
-                if(writer != null) {
+                if (writer != null) {
                     writer.close(); 
                 }
             } catch (IOException e) {
@@ -76,14 +83,13 @@ public class ScoresImpl implements Scores {
             }
         }
     }
-    
-    
+
     private String readScoreFromFile() { 
         // format name:score (ex: Marco:100)
-        
+
         FileReader readFile = null;
         BufferedReader reader = null;
-        
+
         try {
             readFile = new FileReader("score.txt");
             reader = new BufferedReader(readFile); 
@@ -92,7 +98,7 @@ public class ScoresImpl implements Scores {
             return "0";
         } finally {
             try {
-                if(reader != null) {
+                if (reader != null) {
                     reader.close();
                 }
             } catch (IOException e) {

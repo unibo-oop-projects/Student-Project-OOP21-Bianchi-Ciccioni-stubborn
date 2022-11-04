@@ -1,11 +1,11 @@
 package models;
 
 /**
- * This is a standard generic Pair<X,Y>, with getters, hashCode, equals, and toString well implemented.
+ * This is a standard generic Pair X and Y, with getters, hashCode, equals, and toString well implemented.
  * 
  *
- * @param Generic X type of element
- * @param Generic Y type of element
+ * @param X Generic X type of element
+ * @param Y Generic Y type of element
  */
 
 public class Pair<X,Y> {
@@ -16,8 +16,8 @@ public class Pair<X,Y> {
 	/**
 	 * This is the constructor
 	 * 
-	 * @param element of X type
-	 * @param element of Y type
+	 * @param x element of X type
+	 * @param y element of Y type
 	 */
 	public Pair(X x, Y y) {
 		super();

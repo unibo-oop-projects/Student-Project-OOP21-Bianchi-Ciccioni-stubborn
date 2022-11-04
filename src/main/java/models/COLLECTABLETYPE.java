@@ -14,21 +14,21 @@ public enum COLLECTABLETYPE {
     CHALICE(150),
     CROWN(200),
     BAGOFCOINS(200);
-    
-    
+
+
     private final int points;
-    
+
     /**
-     * Get the value of a Collectable
+     * Get the value of a Collectable.
      * 
      * @return The number of points given by the Collectable when picked up
      */
     public int getPoints()  {
         return this.points;
     }
-    
+
     /**
-     * Assign a random value type to a collectable from constants
+     * Assign a random value type to a collectable from constants.
      * 
      * @return Random value from constants containted in enum for the collectable
      */
@@ -36,13 +36,13 @@ public enum COLLECTABLETYPE {
         Random random = new Random();
         return values()[random.nextInt(values().length)];
     }
-    
+
     /**
-     * This is the constructor of CollectableType and its constants
+     * This is the constructor of CollectableType and its constants.
      * 
-     * @param The number of points of Collectable, its "value"
+     * @param points The number of points of Collectable, its "value"
      */
-    COLLECTABLETYPE(int points){
+    COLLECTABLETYPE(final int points){
         this.points = points;
     }
 }

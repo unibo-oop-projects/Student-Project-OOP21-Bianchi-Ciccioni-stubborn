@@ -14,6 +14,9 @@ public final class Main extends Application {
     private static final int SCENE_WIDTH = 600;
     private static final int SCENE_HEIGHT = 500;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void start(final Stage stage) throws Exception {
         final Parent root = FXMLLoader.load(ClassLoader.getSystemResource("layouts/menu.fxml"));

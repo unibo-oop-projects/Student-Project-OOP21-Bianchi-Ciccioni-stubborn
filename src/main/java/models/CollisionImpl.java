@@ -16,11 +16,11 @@ public class CollisionImpl implements CollisionStrategy {
      * {@inheritDoc}
      */
     @Override
-    public boolean checkCollisions(Map<Point2D, Optional<Entity>> board, Point2D newPos, int width, int height) {
-        if(newPos.getX() >= width || newPos.getX() < 0 || newPos.getY() >= height || newPos.getY() < 0) {
+    public boolean checkCollisions(final Map<Point2D, Optional<Entity>> board, final Point2D newPos, final int width, final int height) {
+        if (newPos.getX() >= width || newPos.getX() < 0 || newPos.getY() >= height || newPos.getY() < 0) {
             return true;
         }
         return board.get(newPos).isPresent() && (board.get(newPos).get() instanceof Enemy || board.get(newPos).get() instanceof Player);
     }
-    
+
 }

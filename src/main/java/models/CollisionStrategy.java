@@ -11,17 +11,17 @@ import java.util.Optional;
  *
  */
 public interface CollisionStrategy {
-    
+
     /**
      * Checks if it is possible for an entity, based on the current game map, if it
-     * can move to the new given position 
+     * can move to the new given position.
      * 
-     * @param the board map of the game
-     * @param the new position that the entity is trying to reach
-     * @param The width boundary of the map
-     * @param The height boundary of the map
+     * @param board The board map of the game
+     * @param newPos The new position that the entity is trying to reach
+     * @param width The width boundary of the map
+     * @param height The height boundary of the map
      * @return Whether it is possible to move to the new position
      */
-    public boolean checkCollisions(Map<Point2D,Optional<Entity>> board, Point2D newPos, int width, int height);
+    boolean checkCollisions(Map<Point2D, Optional<Entity>> board, Point2D newPos, int width, int height);
 
 }
