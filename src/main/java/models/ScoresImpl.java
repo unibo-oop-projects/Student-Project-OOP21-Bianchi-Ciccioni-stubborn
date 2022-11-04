@@ -23,6 +23,7 @@ public class ScoresImpl implements Scores {
                String[] split = s.nextLine().split(":");
                scores.add(new Pair<>(split[0], Integer.parseInt(split[1])));
             }
+            s.close();
         } catch (FileNotFoundException ex) {
             System.out.println("No file found");
         }
