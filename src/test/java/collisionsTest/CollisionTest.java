@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 
 import models.Entity;
 import models.MOVEMENT;
-import models.Pair;
 import models.Player;
 import models.Point2D;
 import models.RandomSpawnStrategy;
@@ -12,7 +11,6 @@ import models.SpawnStrategy;
 import models.WorldMap;
 import models.WorldMapImpl;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 

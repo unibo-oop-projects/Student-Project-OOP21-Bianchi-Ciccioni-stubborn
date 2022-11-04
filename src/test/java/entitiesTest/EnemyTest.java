@@ -48,7 +48,6 @@ public class EnemyTest {
         Point2D newEnemyPos = e1.getAi().move(board, startPlayerPosition, startEnemy1Position);
         e1.setPosition(newEnemyPos);
         System.out.println(newEnemyPos);
-        //assertEquals(e1.getAi(), ai1);
         assertNotEquals(e1.getPosition(), startEnemy1Position);
     }
     
@@ -61,7 +60,6 @@ public class EnemyTest {
         e2.setPosition(newEnemyPos);
         int dAfter = ((e2.getPosition().getX() - startPlayerPosition.getX()) + (e2.getPosition().getY() - startPlayerPosition.getY()));
         System.out.println("after: " + dAfter);
-        //assertEquals(e2.getAi(), ai2);
         assertTrue(dBefore > dAfter);
     }
 }

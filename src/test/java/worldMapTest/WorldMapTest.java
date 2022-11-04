@@ -65,9 +65,6 @@ public class WorldMapTest {
         Point2D leftPosition = new Point2D(24,26);
         assertTrue(board.get(leftPosition).isPresent());
         assertTrue(board.get(leftPosition).get() instanceof Player);
-        assertTrue(board.get(startPlayerPos).isEmpty());
-        
+        assertTrue(board.get(startPlayerPos).isEmpty()); 
     }
-    
-
 }
