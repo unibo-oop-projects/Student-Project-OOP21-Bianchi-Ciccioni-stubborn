@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * BoardController is a presenter class (we called it a controller to make its role more clear)
- * that connects the logical game map with its counterpart. It takes elements from the WorldMap model
+ * that connects the logical game map with its graphical counterpart. It takes elements from the WorldMap model
  * so that they can be used by the BoardView to properly show each event and scenario to the user
  */
 public final class BoardController {

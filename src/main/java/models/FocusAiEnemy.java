@@ -7,12 +7,16 @@ import java.util.Map;
 import java.util.Optional;
 
 
+/**
+ * FocusAiEnemy is a class that implements AiEnemy and its contracts.
+ * This class implements AiEnemy for a focused movements of enemy.
+ */
 public class FocusAiEnemy implements AiEnemy {
 
     private static final int FMIN = 100000;
 
     /**
-     * 
+     * {@inheritDoc}
      */
     @Override
     public Point2D move(final Map<Point2D, Optional<Entity>> board, final Point2D playerPosition, final Point2D position) {
@@ -37,6 +41,13 @@ public class FocusAiEnemy implements AiEnemy {
         return q;
     }
 
+    /**
+     * Get every possible directions for enemy based on his current position.
+     * 
+     * @param movements the possible movements
+     * @param position the current position of enemy
+     * @return every possible movements that can be done from current position
+     */
     private Map<Point2D, Integer> getDirections(final List<MOVEMENT> movements, final Point2D position) {
         Map<Point2D, Integer> directions = new HashMap<>();
         for (MOVEMENT i : movements) {

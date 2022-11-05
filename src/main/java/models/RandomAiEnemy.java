@@ -4,10 +4,14 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
 
+/**
+ * RandomAiEnemy is a class that implements AiEnemy and its contracts.
+ * This class implements AiEnemy for a random movements of enemy.
+ */
 public class RandomAiEnemy implements AiEnemy {
 
     /**
-     * 
+     * {@inheritDoc}
      */
     @Override
     public Point2D move(final Map<Point2D, Optional<Entity>> board, final Point2D playerPosition, final Point2D position) {

@@ -11,12 +11,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * ScoresImpl is a class that implements Scores and its contracts.
+ * It generates new scores to add to file and save it.
+ */
 public class ScoresImpl implements Scores {
 
     private List<Pair<String, Integer>> scores = new ArrayList<>();
 
+    /**
+     * This is the constructor for ScoresImpl
+     */
     public ScoresImpl() {
-        //TODO inizialize the scores list with the content of score.txt file
         try {
             Scanner s = new Scanner(new File("score.txt"));
             while (s.hasNextLine()) {
@@ -30,7 +36,7 @@ public class ScoresImpl implements Scores {
     }
 
     /**
-     * 
+     * {@inheritDoc}
      */
     @Override
     public void setScore(final String name, final Integer score) {
@@ -40,7 +46,7 @@ public class ScoresImpl implements Scores {
     }
 
     /**
-     * 
+     * {@inheritDoc}
      */
     @Override
     public List<Pair<String, Integer>> getAllScores() {
@@ -48,7 +54,7 @@ public class ScoresImpl implements Scores {
     }
 
     /**
-     * 
+     * {@inheritDoc}
      */
     @Override
     public String getScore() {
@@ -56,6 +62,11 @@ public class ScoresImpl implements Scores {
         return score;
     }
 
+    /**
+     * Write into file a new score
+     * 
+     * @param score the single score that will be saved
+     */
     private void writeScoreIntoFile(final String score) {
         File scoreFile = new File("score.txt");
         if (!scoreFile.exists()) {
@@ -84,6 +95,11 @@ public class ScoresImpl implements Scores {
         }
     }
 
+    /**
+     * Read from file a score
+     * 
+     * @return score a single score that has been saved
+     */
     private String readScoreFromFile() { 
         // format name:score (ex: Marco:100)
 

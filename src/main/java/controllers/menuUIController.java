@@ -10,6 +10,10 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+/**
+ * menuUIController is a presenter class (we called it a controller to make its role more clear)
+ * that acts as a game menu.
+ */
 public final class menuUIController {
 
     private static final int SCENE_WIDTH = 500;
@@ -23,10 +27,16 @@ public final class menuUIController {
 
     @FXML
     private Pane mainPane;
-
+    
+    /**
+     * This is the constructor of the controller.
+     */
     public menuUIController() {
     }
 
+    /**
+     * Start a new game.
+     */
     public void newGame() {
         Stage boardStage = (Stage) this.mainPane.getScene().getWindow();
         Parent root = null;
@@ -40,6 +50,9 @@ public final class menuUIController {
         boardStage.show();
     }
 
+    /**
+     * View a table of all saved scores.
+     */
     public void viewScores() {
         Stage boardStage = (Stage) this.mainPane.getScene().getWindow();
         Parent root = null;
@@ -53,6 +66,9 @@ public final class menuUIController {
         boardStage.show();
     }
 
+    /**
+     * Exit the game.
+     */
     public void exit() {
         System.out.println("I hope to see you again");
         System.exit(0);

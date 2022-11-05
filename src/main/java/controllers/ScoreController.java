@@ -1,9 +1,7 @@
 package controllers;
 
-
 import java.util.ArrayList;
 import java.util.List;
-
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,8 +15,11 @@ import models.Pair;
 import models.Scores;
 import models.ScoresImpl;
 
+/**
+ * ScoreController is a presenter class (we called it a controller to make its role more clear)
+ * that shows the user each saved score.
+ */
 public class ScoreController {
-
     private final Scores s = new ScoresImpl();
 
     @FXML
@@ -36,12 +37,18 @@ public class ScoreController {
     @FXML
     private TableColumn<String, String> name;
 
+    /**
+     * Calls for initialization of score controller.
+     */
     @FXML
     private void initialize() {
         System.out.println(s.getAllScores());
         Platform.runLater(() -> this.initializeView());
     }
 
+    /**
+     * This is the actual initialization of score controller.
+     */
     private void initializeView() {
         List<String> n = new ArrayList<>();
         List<String> l = new ArrayList<>();
@@ -52,25 +59,14 @@ public class ScoreController {
         ObservableList<Pair<String, Integer>> data = FXCollections.<Pair<String, Integer>>observableArrayList();
         ObservableList<String> dataName = FXCollections.<String>observableArrayList(n);
         ObservableList<String> dataScore = FXCollections.<String>observableArrayList(l);
-        System.out.println(n.toString());
-        System.out.println(l.toString());
         data.addAll(s.getAllScores());
-        //System.out.println("data print");
-        //System.out.println(data.toString());
-        //name.setCellValueFactory(new PropertyValueFactory<String, String>(n));
-        //score.setCellValueFactory(new PropertyValueFactory<Pair<String, Integer>, Integer>(data.get(0).getY().toString()));
         dataName.forEach(s -> {
-            //System.out.println("name: " +  s.getX() + " " + "score: " + s.getY());
             name.setCellValueFactory(new PropertyValueFactory<String, String>(s));
         });
         dataScore.forEach(s -> {
-            //System.out.println("name: " +  s.getX() + " " + "score: " + s.getY());
             score.setCellValueFactory(new PropertyValueFactory<String, String>(s));
         });
-
-        scoreTable.getItems().add(data);
     }
-
 }
 
 

@@ -1,18 +1,28 @@
 package models;
 
+/**
+ * PlayerImpl is a class that implements Player and its contracts.
+ * It generate player entity, initialized with a position and set amount of health.
+ */
 public class PlayerImpl implements Player {
 
     private Point2D position;
     private int health;
     private static final int MAXHEALTH = 3;
 
+    /**
+     * This is the constructor for player.
+     * 
+     * @param position the initial position of player
+     * @param health the initial amount of health of player
+     */
     public PlayerImpl(final Point2D position, final int health) {
         this.position = position;
         this.health = health;
     }
 
     /**
-     * 
+     * {@inheritDoc}
      */
     @Override
     public int getHealth() {
@@ -20,7 +30,7 @@ public class PlayerImpl implements Player {
     }
 
     /**
-     * 
+     * {@inheritDoc}
      */
     @Override
     public void setHealth(final int value) {
@@ -30,7 +40,7 @@ public class PlayerImpl implements Player {
     }
 
     /**
-     * 
+     * {@inheritDoc}
      */
     @Override
     public Point2D getPosition() {
@@ -38,7 +48,7 @@ public class PlayerImpl implements Player {
     }
 
     /**
-     * 
+     * {@inheritDoc}
      */
     @Override
     public void setPosition(final Point2D position) {

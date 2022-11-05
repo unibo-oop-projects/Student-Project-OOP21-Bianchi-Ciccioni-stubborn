@@ -1,6 +1,9 @@
 package models;
 
-
+/**
+ * EnemyImpl is a class that implements Enemy and its contracts.
+ * It generates Enemy entities, each initialized with a position, set amount of health and an Ai.
+ */
 public class EnemyImpl implements Enemy {
 
     private Point2D position;
@@ -8,6 +11,13 @@ public class EnemyImpl implements Enemy {
     private static final int MAXHEALTH = 1;
     private AiEnemy aiEnemy;
 
+    /**
+     * This is the constructor of EnemyImpl
+     * 
+     * @param position the initial position of enemy
+     * @param health the health of the enemy
+     * @param aiEnemy the Ai of the enemy
+     */
     public EnemyImpl(final Point2D position, final int health, final AiEnemy aiEnemy) {
         this.position = position;
         this.health = health;
@@ -15,7 +25,7 @@ public class EnemyImpl implements Enemy {
     }
 
     /**
-     * 
+     * {@inheritDoc}
      */
     @Override
     public int getHealth() {
@@ -23,7 +33,7 @@ public class EnemyImpl implements Enemy {
     }
 
     /**
-     * 
+     * {@inheritDoc}
      */
     @Override
     public void setHealth(final int value) {
@@ -33,7 +43,7 @@ public class EnemyImpl implements Enemy {
     }
 
     /**
-     * 
+     * {@inheritDoc}
      */
     @Override
     public Point2D getPosition() {
@@ -41,7 +51,7 @@ public class EnemyImpl implements Enemy {
     }
 
     /**
-     * 
+     * {@inheritDoc}
      */
     @Override
     public void setPosition(final Point2D position) {
@@ -49,7 +59,7 @@ public class EnemyImpl implements Enemy {
     }
 
     /**
-     * 
+     * {@inheritDoc}
      */
     @Override
     public AiEnemy getAi() {
