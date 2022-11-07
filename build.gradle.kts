@@ -14,7 +14,7 @@ plugins {
     alias(libs.plugins.taskTree)
 }
 repositories {
-    jcenter() // Contains the whole Maven Central + other stuff
+    mavenCentral() // Contains the whole Maven Central + other stuff
 }
 // List of JavaFX modules you need. Comment out things you are not using.
 val javaFXModules = listOf(
